@@ -14,8 +14,10 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.Timer;
 
 /**
@@ -46,6 +48,7 @@ public class GamePanel extends javax.swing.JPanel {
             Logger.getLogger(From.class.getName()).log(Level.SEVERE, null, ex);
         }
 //         t = new Timer(100,)
+
     }
     
     @Override
@@ -90,15 +93,18 @@ public class GamePanel extends javax.swing.JPanel {
 
     private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
         System.out.println(evt.getX()+" "+evt.getY());
-        if (evt.getX()>=(this.getHeight()/2)&& evt.getX()<(this.getHeight()/2)+100) {
-            if (evt.getY()>=(this.getWidth()/2)&& evt.getY()<(this.getWidth()/2-25+50)+40) {
+        if (evt.getX()>=(this.getHeight()/2)&& evt.getX()<=(this.getHeight()/2)+100) {
+            if (evt.getY()>=(this.getWidth()/2)&& evt.getY()<=(this.getWidth()/2-25+50)+40) {
                 JOptionPane.showMessageDialog(this,"Exit");
-                
+                JPanel addPanel = new JPanel();
+                JButton addButton= new JButton("Add");
+                addPanel.add(addButton);
+                addButton.setLocation(this.getHeight()/2,this.getWidth()/2);
                 status="c";
             }
         }
-        if (evt.getX()>=(this.getHeight()/2)&& evt.getX()<(this.getHeight()/2)+100) {
-            if (evt.getY()>=(this.getWidth()/2)&& evt.getY()<((this.getWidth()/2)-25)+40) {
+        if (evt.getX()>=(this.getHeight()/2)&& evt.getX()<=(this.getHeight()/2)+100) {
+            if (evt.getY()>=(this.getWidth()/2)&& evt.getY()<=((this.getWidth()/2)-25)+40) {
                 JOptionPane.showMessageDialog(this,"Play");
             }
         }
