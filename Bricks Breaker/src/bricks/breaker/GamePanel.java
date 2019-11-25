@@ -34,6 +34,7 @@ public class GamePanel extends javax.swing.JPanel {
      * Creates new form GamePanel
      */
     BufferedImage bg;
+    
     public int xplay,xquit,yplay,yquit,widthplay,heightplay,widthquit,heightquit;
     BufferedImage board;
     BufferedImage play;
@@ -42,6 +43,7 @@ public class GamePanel extends javax.swing.JPanel {
     public String status="";
     ArrayList<JLabel> arrlabel = new ArrayList<JLabel>();
     public GamePanel() {
+        Music("jiancok.wav");
         initComponents();
                 initComponents();
          try {
@@ -52,7 +54,7 @@ public class GamePanel extends javax.swing.JPanel {
         } catch (IOException ex) {
             Logger.getLogger(From.class.getName()).log(Level.SEVERE, null, ex);
         }
-         Music("bg.wav");
+         
 //         t = new Timer(100,)
 
     }
