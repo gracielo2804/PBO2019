@@ -9,7 +9,9 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -19,6 +21,8 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.Timer;
+import sun.audio.AudioPlayer;
+import sun.audio.AudioStream;
 
 /**
  *
@@ -48,8 +52,21 @@ public class GamePanel extends javax.swing.JPanel {
         } catch (IOException ex) {
             Logger.getLogger(From.class.getName()).log(Level.SEVERE, null, ex);
         }
+         Music("bg.wav");
 //         t = new Timer(100,)
 
+    }
+    
+    public static void Music(String file){
+        InputStream music;
+        
+        try{
+            music = new FileInputStream(new File(file));
+            AudioStream audio = new AudioStream(music);
+            AudioPlayer.player.start(audio);
+        }catch(Exception e){
+            
+        }
     }
     public void set_pos(int xplay,int xquit,int yplay,int yquit,int heightplay,int widthplay,int heightquit,int widthquit)
     {
