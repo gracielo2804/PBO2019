@@ -69,8 +69,8 @@ public class GamePanel extends javax.swing.JPanel {
         Graphics2D g2 = (Graphics2D)grphcs;
         //posisi x,y,ukuran,ukuran,
         g2.drawImage(bg,0,0,this.getWidth(),this.getHeight(),null);
-        g2.drawImage(play,xplay,yplay,widthplay,heightplay,null);
-        g2.drawImage(quit,xquit,yquit,widthquit,heightplay,null);
+//        g2.drawImage(play,xplay,yplay,widthplay,heightplay,null);
+//        g2.drawImage(quit,xquit,yquit,widthquit,heightplay,null);
         g2.drawImage(board,50,900,550,100,null);
         for (JLabel lbl: arrlabel) {
             add(lbl);
