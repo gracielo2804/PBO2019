@@ -52,7 +52,7 @@
                       <Component id="jButton2" min="-2" pref="246" max="-2" attributes="0"/>
                       <Component id="jButton1" min="-2" pref="246" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="426" max="32767" attributes="0"/>
+                  <EmptySpace pref="437" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -74,7 +74,6 @@
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" id="Button.disabledShadow" palette="3" red="ff" type="palette"/>
             </Property>
-            <Property name="label" type="java.lang.String" value=""/>
             <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
               <Insets value="[0, 0, 0, 0]"/>
             </Property>
@@ -85,7 +84,6 @@
         </Component>
         <Component class="javax.swing.JButton" name="jButton2">
           <Properties>
-            <Property name="label" type="java.lang.String" value=""/>
             <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
               <Insets value="[0, 0, 0, 0]"/>
             </Property>
