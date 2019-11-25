@@ -5,10 +5,7 @@
  */
 package bricks.breaker;
 
-/**
- *
- * @author ASUS
- */
+
 public class power_laser extends Powerup{
     
     public power_laser(String nama, int waktu, String efek, int x, int y) {
