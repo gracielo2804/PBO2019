@@ -95,11 +95,6 @@ public class GamePanel extends javax.swing.JPanel {
         System.out.println(evt.getX()+" "+evt.getY());
         if (evt.getX()>=(this.getHeight()/2)&& evt.getX()<=(this.getHeight()/2)+100) {
             if (evt.getY()>=(this.getWidth()/2)&& evt.getY()<=(this.getWidth()/2-25+50)+40) {
-                JOptionPane.showMessageDialog(this,"Exit");
-                JPanel addPanel = new JPanel();
-                JButton addButton= new JButton("Add");
-                addPanel.add(addButton);
-                addButton.setLocation(this.getHeight()/2,this.getWidth()/2);
                 status="c";
             }
         }
