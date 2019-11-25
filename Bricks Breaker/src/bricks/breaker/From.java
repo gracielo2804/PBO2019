@@ -21,7 +21,11 @@ public class From extends javax.swing.JFrame {
     boolean cek=true;
     public From() {
         initComponents();
-        
+        gamePanel1.set_pos(jButton1.getX(),jButton2.getX(),jButton1.getY(),jButton2.getY(),jButton1.getHeight(),jButton1.getWidth(),jButton2.getHeight(),jButton2.getWidth());
+        jButton1.setOpaque(false);
+        jButton1.setVisible(false);
+        jButton2.setVisible(false);
+        jButton2.setOpaque(false);
         Timer t=new Timer(1,new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
@@ -48,18 +52,36 @@ public class From extends javax.swing.JFrame {
     private void initComponents() {
 
         gamePanel1 = new bricks.breaker.GamePanel();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jButton1.setText("jButton1");
+        jButton1.setOpaque(false);
+
+        jButton2.setText("jButton2");
+        jButton2.setOpaque(false);
 
         javax.swing.GroupLayout gamePanel1Layout = new javax.swing.GroupLayout(gamePanel1);
         gamePanel1.setLayout(gamePanel1Layout);
         gamePanel1Layout.setHorizontalGroup(
             gamePanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 380, Short.MAX_VALUE)
+            .addGroup(gamePanel1Layout.createSequentialGroup()
+                .addGap(384, 384, 384)
+                .addGroup(gamePanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 194, Short.MAX_VALUE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(442, Short.MAX_VALUE))
         );
         gamePanel1Layout.setVerticalGroup(
             gamePanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 278, Short.MAX_VALUE)
+            .addGroup(gamePanel1Layout.createSequentialGroup()
+                .addGap(262, 262, 262)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(192, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -119,5 +141,7 @@ public class From extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private bricks.breaker.GamePanel gamePanel1;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     // End of variables declaration//GEN-END:variables
 }
