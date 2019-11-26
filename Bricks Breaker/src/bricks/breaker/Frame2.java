@@ -29,18 +29,30 @@ public class Frame2 extends javax.swing.JFrame {
     private void initComponents() {
 
         panelBuatMain1 = new bricks.breaker.PanelBuatMain();
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        panelBuatMain2 = new bricks.breaker.PanelBuatMain();
 
         javax.swing.GroupLayout panelBuatMain1Layout = new javax.swing.GroupLayout(panelBuatMain1);
         panelBuatMain1.setLayout(panelBuatMain1Layout);
         panelBuatMain1Layout.setHorizontalGroup(
             panelBuatMain1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 380, Short.MAX_VALUE)
+            .addGap(0, 100, Short.MAX_VALUE)
         );
         panelBuatMain1Layout.setVerticalGroup(
             panelBuatMain1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 278, Short.MAX_VALUE)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        javax.swing.GroupLayout panelBuatMain2Layout = new javax.swing.GroupLayout(panelBuatMain2);
+        panelBuatMain2.setLayout(panelBuatMain2Layout);
+        panelBuatMain2Layout.setHorizontalGroup(
+            panelBuatMain2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 382, Short.MAX_VALUE)
+        );
+        panelBuatMain2Layout.setVerticalGroup(
+            panelBuatMain2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 280, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -49,14 +61,14 @@ public class Frame2 extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(panelBuatMain1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(panelBuatMain2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(panelBuatMain1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(panelBuatMain2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -100,5 +112,6 @@ public class Frame2 extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private bricks.breaker.PanelBuatMain panelBuatMain1;
+    private bricks.breaker.PanelBuatMain panelBuatMain2;
     // End of variables declaration//GEN-END:variables
 }

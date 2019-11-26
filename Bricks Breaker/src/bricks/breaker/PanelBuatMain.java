@@ -50,7 +50,7 @@ public class PanelBuatMain extends javax.swing.JPanel {
             Logger.getLogger(From.class.getName()).log(Level.SEVERE, null, ex);
         }
         this.setFocusable(true);
-        t =new Timer(10,new ActionListener() {
+        t =new Timer(20,new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 ball.setX(ball.getX()+ball.getMovex());
@@ -77,7 +77,7 @@ public class PanelBuatMain extends javax.swing.JPanel {
         if (ball.getY()<0) {
             ball.setMovey(ball.getMovey()*-1);
         }
-        if (ball.getY()>this.getHeight()-60&& ball.getX()<=x+150 && ball.getX()>=x) {
+        if (ball.getY()>this.getHeight()-65&& ball.getX()<=x+150 && ball.getX()>=x) {
             ball.setMovey(ball.getMovey()*-1);
         }
         if (ball.getX()<0) {
@@ -90,50 +90,50 @@ public class PanelBuatMain extends javax.swing.JPanel {
             ball.setY(100);
             t.start();
         }     
-        for (int i = 0; i < block.size(); i++) {
-            if (ball.getMovex()>0&ball.getMovey()>0) {
-                if (ball.getX()>=block.get(i).getX()&&ball.getX()<=block.get(i).getX()+15&& ball.getY()<=block.get(i).getY()+25 &&ball.getY()>=block.get(i).getY()) {
-                    ball.setMovex(ball.getMovex()*-1);
-                    block.get(i).hit();
-                }
-                else if (ball.getY()>=block.get(i).getY()&&ball.getY()>=block.get(i).getY()+15&& ball.getX()<=block.get(i).getX()+50 &&ball.getY()>=block.get(i).getX()) {
-                    ball.setMovey(ball.getMovey()*-1);
-                    block.get(i).hit();
-                }
-            }
-            else if (ball.getMovex()>0&ball.getMovey()<0) {
-                if (ball.getX()>=block.get(i).getX()&& ball.getX()<=block.get(i).getX()+15&&ball.getY()<=block.get(i).getY()+25 &&ball.getY()>=block.get(i).getY()) {
-                    ball.setMovex(ball.getMovex()*-1);
-                    block.get(i).hit();
-                }
-                else if (ball.getY()>=block.get(i).getY()+25&&ball.getY()>=block.get(i).getY()+10&& ball.getX()<=block.get(i).getX()+50 &&ball.getY()>=block.get(i).getX()) {
-                    ball.setMovey(ball.getMovey()*-1);
-                    block.get(i).hit();
-                }
-            }
-            else if (ball.getMovex()<0&ball.getMovey()>0) {
-                if (ball.getX()>=block.get(i).getX()+50&&ball.getX()<=block.get(i).getX()+35&& ball.getY()<=block.get(i).getY()+25 &&ball.getY()>=block.get(i).getY()) {
-                    ball.setMovex(ball.getMovex()*-1);
-                    block.get(i).hit();
-                }
-                else if (ball.getY()>=block.get(i).getY()&&ball.getY()>=block.get(i).getY()+15&& ball.getX()<=block.get(i).getX()+50 &&ball.getY()>=block.get(i).getX()) {
-                    ball.setMovey(ball.getMovey()*-1);
-                    block.get(i).hit();
-                }
-            }
-            else if (ball.getMovex()<0&ball.getMovey()<0) {
-                if (ball.getX()>=block.get(i).getX()+50&&ball.getX()<=block.get(i).getX()+35&& ball.getY()<=block.get(i).getY()+25 &&ball.getY()>=block.get(i).getY()) {
-                    ball.setMovex(ball.getMovex()*-1);
-                    block.get(i).hit();
-                }
-                else if (ball.getY()>=block.get(i).getY()&&ball.getY()>=block.get(i).getY()+15&& ball.getX()<=block.get(i).getX()+50 &&ball.getY()>=block.get(i).getX()) {
-                    ball.setMovey(ball.getMovey()*-1);
-                    block.get(i).hit();
-                }
-            }
-        }
+//        for (int i = 0; i < block.size(); i++) {
+//            if (ball.getMovex()>0&ball.getMovey()>0) {
+//                if (ball.getX()>=block.get(i).getX()&&ball.getX()<=block.get(i).getX()+15&& ball.getY()<=block.get(i).getY()+25 &&ball.getY()>=block.get(i).getY()) {
+//                    ball.setMovex(ball.getMovex()*-1);
+//                    block.get(i).hit();
+//                }
+//                else if (ball.getY()>=block.get(i).getY()&&ball.getY()>=block.get(i).getY()+15&& ball.getX()<=block.get(i).getX()+50 &&ball.getY()>=block.get(i).getX()) {
+//                    ball.setMovey(ball.getMovey()*-1);
+//                    block.get(i).hit();
+//                }
+//            }
+//            else if (ball.getMovex()>0&ball.getMovey()<0) {
+//                if (ball.getX()>=block.get(i).getX()&& ball.getX()<=block.get(i).getX()+15&&ball.getY()<=block.get(i).getY()+25 &&ball.getY()>=block.get(i).getY()) {
+//                    ball.setMovex(ball.getMovex()*-1);
+//                    block.get(i).hit();
+//                }
+//                else if (ball.getY()>=block.get(i).getY()+25&&ball.getY()>=block.get(i).getY()+10&& ball.getX()<=block.get(i).getX()+50 &&ball.getY()>=block.get(i).getX()) {
+//                    ball.setMovey(ball.getMovey()*-1);
+//                    block.get(i).hit();
+//                }
+//            }
+//            else if (ball.getMovex()<0&ball.getMovey()>0) {
+//                if (ball.getX()>=block.get(i).getX()+50&&ball.getX()<=block.get(i).getX()+35&& ball.getY()<=block.get(i).getY()+25 &&ball.getY()>=block.get(i).getY()) {
+//                    ball.setMovex(ball.getMovex()*-1);
+//                    block.get(i).hit();
+//                }
+//                else if (ball.getY()>=block.get(i).getY()&&ball.getY()>=block.get(i).getY()+15&& ball.getX()<=block.get(i).getX()+50 &&ball.getY()>=block.get(i).getX()) {
+//                    ball.setMovey(ball.getMovey()*-1);
+//                    block.get(i).hit();
+//                }
+//            }
+//            else if (ball.getMovex()<0&ball.getMovey()<0) {
+//                if (ball.getX()>=block.get(i).getX()+50&&ball.getX()<=block.get(i).getX()+35&& ball.getY()<=block.get(i).getY()+25 &&ball.getY()>=block.get(i).getY()) {
+//                    ball.setMovex(ball.getMovex()*-1);
+//                    block.get(i).hit();
+//                }
+//                else if (ball.getY()>=block.get(i).getY()&&ball.getY()>=block.get(i).getY()+15&& ball.getX()<=block.get(i).getX()+50 &&ball.getY()>=block.get(i).getX()) {
+//                    ball.setMovey(ball.getMovey()*-1);
+//                    block.get(i).hit();
+//                }
+//            }
+//        }
                 
-        g2.drawImage(ball.getBall(), ball.getX(),ball.getY(), this);
+        g2.drawImage(ball.getGambarbola(), ball.getX(),ball.getY(), this);
         
         repaint();
     }
