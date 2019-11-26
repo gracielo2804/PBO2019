@@ -5,31 +5,54 @@
  */
 package bricks.breaker;
 
+import java.awt.Image;
+import javax.swing.ImageIcon;
+
 /**
  *
  * @author ASUS
  */
-public class ball {
-   int x;
-   int y;
-   String name;
+public class Ball {
+   int x,y,movex,movey;
+   Image gambarbola;
 
-    public ball(int x, int y, String name) {
-        this.x = x;
-        this.y = y;
-        this.name = name;
+
+    public Ball() {
+        this.x = 100;
+        this.y = 100;
+        this.movex = 2;
+        this.movey = 2;
+        ImageIcon gmbr=new ImageIcon("Ball.jpg");
+        Image img=gmbr.getImage();
+        Image newimg=img.getScaledInstance(15,15,java.awt.Image.SCALE_SMOOTH);
+        gambarbola=newimg;
     }
 
-    public String getName() {
-        return name;
+    public int getMovex() {
+        return movex;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setMovex(int movex) {
+        this.movex = movex;
     }
 
+    public int getMovey() {
+        return movey;
+    }
 
+    public void setMovey(int movey) {
+        this.movey = movey;
+    }
 
+    public Image getGambarbola() {
+        return gambarbola;
+    }
+
+    public void setGambarbola(Image gambarbola) {
+        this.gambarbola = gambarbola;
+    }
+    
+    
     public int getX() {
         return x;
     }
