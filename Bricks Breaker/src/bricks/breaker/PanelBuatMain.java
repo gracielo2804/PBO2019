@@ -20,6 +20,7 @@ import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.Timer;
 
 /**
@@ -32,46 +33,16 @@ public class PanelBuatMain extends javax.swing.JPanel {
      * Creates new form PanelBuatMain
      */
     int x=(this.getWidth()/2);
-    ImageIcon ballcon=new ImageIcon("Ball.jpg"); 
-    Image ball;
+    Ball ball=new Ball();
+    Timer t;
     int xbola=100,ybola=100,movexbola=2,moveybola=2;
-    ArrayList<Image> imgbrick=new ArrayList<>();
+    ArrayList<Block>block=new ArrayList<>();
     public PanelBuatMain() {
         initComponents();        
-        Image imgn=ballcon.getImage();
-        ball=imgn.getScaledInstance(15,15,java.awt.Image.SCALE_SMOOTH);
-        for (int i = 0; i < 10; i++) {
+        
+        for (int i = 0; i < 15; i++) {
             int rnd= (int)(Math.random()*5);
-            if (rnd==0) {
-                ImageIcon icon= new ImageIcon("brick.png");
-                Image img=icon.getImage();
-                Image newimg=img.getScaledInstance(50,25,java.awt.Image.SCALE_SMOOTH);                
-                imgbrick.add(newimg);
-            }
-            if (rnd==1) {
-                ImageIcon icon= new ImageIcon("brick1.png");
-                Image img=icon.getImage();
-                Image newimg=img.getScaledInstance(50,25,java.awt.Image.SCALE_SMOOTH);            
-                imgbrick.add(newimg);
-            }
-            if (rnd==2) {
-                ImageIcon icon= new ImageIcon("brick2.png");
-                Image img=icon.getImage();
-                Image newimg=img.getScaledInstance(50,25,java.awt.Image.SCALE_SMOOTH);
-                imgbrick.add(newimg);
-            }
-            if (rnd==3) {
-                ImageIcon icon= new ImageIcon("brick3.png");
-                Image img=icon.getImage();
-                Image newimg=img.getScaledInstance(50,25,java.awt.Image.SCALE_SMOOTH);
-                imgbrick.add(newimg);
-            }
-            if (rnd==4) {
-                ImageIcon icon= new ImageIcon("brick4.png");
-                Image img=icon.getImage();
-                Image newimg=img.getScaledInstance(50,25,java.awt.Image.SCALE_SMOOTH);
-                imgbrick.add(newimg);
-            }            
+            block.add(new Block((i*90)+50,10,rnd));               
         }
         try {
             ballbridge=ImageIO.read(new File("ball_bridge1.png"));
@@ -79,11 +50,11 @@ public class PanelBuatMain extends javax.swing.JPanel {
             Logger.getLogger(From.class.getName()).log(Level.SEVERE, null, ex);
         }
         this.setFocusable(true);
-        Timer t =new Timer(10,new ActionListener() {
+        t =new Timer(10,new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                xbola+=movexbola;                
-                ybola+=moveybola;
+                ball.setX(ball.getX()+ball.getMovex());
+                ball.setY(ball.getY()+ball.getMovey());
                 repaint();
             }
         });
@@ -96,25 +67,73 @@ public class PanelBuatMain extends javax.swing.JPanel {
                 Graphics2D g2 = (Graphics2D)grphcs;
         //posisi x,y,ukuran,ukuran,
         g2.drawImage(ballbridge,x,this.getHeight()-50,150,50,null);
-        for (int i = 0; i < imgbrick.size(); i++) {
-            g2.drawImage(imgbrick.get(i),(i*60)+50, 10, this);
-        }
+        for (int i = 0; i < block.size(); i++) {
+            g2.drawImage(block.get(i).getGambarblock(),block.get(i).getX(),block.get(i).getY(), this);
+        }        
         g2.setColor(Color.blue);
-        if (xbola>this.getWidth()-30) {
-            movexbola*=-1;
+        if (ball.getX()>this.getWidth()-30) {
+            ball.setMovex(ball.getMovex()*-1);
         }
-        if(ybola<0)
-        {
-            moveybola*=-1;
+        if (ball.getY()<0) {
+            ball.setMovey(ball.getMovey()*-1);
         }
-        if (ybola>this.getHeight()-60&& xbola<=x+150 && xbola>=x) {
-            moveybola*=-1;
+        if (ball.getY()>this.getHeight()-60&& ball.getX()<=x+150 && ball.getX()>=x) {
+            ball.setMovey(ball.getMovey()*-1);
         }
-        if (xbola<0) {
-            movexbola*=-1;
+        if (ball.getX()<0) {
+            ball.setMovex(ball.getMovex()*-1);
+        }
+        if (ball.getY()>this.getHeight()) {
+            t.stop();
+            JOptionPane.showMessageDialog(this,"Bola Anda Jatuh");
+            ball.setX(100);
+            ball.setY(100);
+            t.start();
+        }     
+        for (int i = 0; i < block.size(); i++) {
+            if (ball.getMovex()>0&ball.getMovey()>0) {
+                if (ball.getX()>=block.get(i).getX()&&ball.getX()<=block.get(i).getX()+15&& ball.getY()<=block.get(i).getY()+25 &&ball.getY()>=block.get(i).getY()) {
+                    ball.setMovex(ball.getMovex()*-1);
+                    block.get(i).hit();
+                }
+                else if (ball.getY()>=block.get(i).getY()&&ball.getY()>=block.get(i).getY()+15&& ball.getX()<=block.get(i).getX()+50 &&ball.getY()>=block.get(i).getX()) {
+                    ball.setMovey(ball.getMovey()*-1);
+                    block.get(i).hit();
+                }
+            }
+            else if (ball.getMovex()>0&ball.getMovey()<0) {
+                if (ball.getX()>=block.get(i).getX()&& ball.getX()<=block.get(i).getX()+15&&ball.getY()<=block.get(i).getY()+25 &&ball.getY()>=block.get(i).getY()) {
+                    ball.setMovex(ball.getMovex()*-1);
+                    block.get(i).hit();
+                }
+                else if (ball.getY()>=block.get(i).getY()+25&&ball.getY()>=block.get(i).getY()+10&& ball.getX()<=block.get(i).getX()+50 &&ball.getY()>=block.get(i).getX()) {
+                    ball.setMovey(ball.getMovey()*-1);
+                    block.get(i).hit();
+                }
+            }
+            else if (ball.getMovex()<0&ball.getMovey()>0) {
+                if (ball.getX()>=block.get(i).getX()+50&&ball.getX()<=block.get(i).getX()+35&& ball.getY()<=block.get(i).getY()+25 &&ball.getY()>=block.get(i).getY()) {
+                    ball.setMovex(ball.getMovex()*-1);
+                    block.get(i).hit();
+                }
+                else if (ball.getY()>=block.get(i).getY()&&ball.getY()>=block.get(i).getY()+15&& ball.getX()<=block.get(i).getX()+50 &&ball.getY()>=block.get(i).getX()) {
+                    ball.setMovey(ball.getMovey()*-1);
+                    block.get(i).hit();
+                }
+            }
+            else if (ball.getMovex()<0&ball.getMovey()<0) {
+                if (ball.getX()>=block.get(i).getX()+50&&ball.getX()<=block.get(i).getX()+35&& ball.getY()<=block.get(i).getY()+25 &&ball.getY()>=block.get(i).getY()) {
+                    ball.setMovex(ball.getMovex()*-1);
+                    block.get(i).hit();
+                }
+                else if (ball.getY()>=block.get(i).getY()&&ball.getY()>=block.get(i).getY()+15&& ball.getX()<=block.get(i).getX()+50 &&ball.getY()>=block.get(i).getX()) {
+                    ball.setMovey(ball.getMovey()*-1);
+                    block.get(i).hit();
+                }
+            }
         }
                 
-        g2.drawImage(ball, xbola,ybola, this);
+        g2.drawImage(ball.getBall(), ball.getX(),ball.getY(), this);
         
         repaint();
     }
