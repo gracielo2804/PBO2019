@@ -17,9 +17,9 @@ public class Ball {
    Image gambarbola;
 
 
-    public Ball() {
-        this.x = 100;
-        this.y = 100;
+    public Ball(int x, int y) {
+        this.x = x;
+        this.y = y;
         this.movex = 2;
         this.movey = 2;
         ImageIcon gmbr=new ImageIcon("Ball.jpg");

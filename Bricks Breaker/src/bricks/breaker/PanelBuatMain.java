@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.scene.input.KeyCode;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -32,17 +33,21 @@ public class PanelBuatMain extends javax.swing.JPanel {
     /**
      * Creates new form PanelBuatMain
      */
-    int x=(this.getWidth()/2);
-    Ball ball=new Ball();
+    int xBoard=this.getWidth()/2;;
+    Ball ball=new Ball(xBoard + 75, 280);
     Timer t;
     int xbola=100,ybola=100,movexbola=2,moveybola=2;
     ArrayList<Block>block=new ArrayList<>();
     public PanelBuatMain() {
-        initComponents();        
+        initComponents();
         
-        for (int i = 0; i < 15; i++) {
-            int rnd= (int)(Math.random()*5);
-            block.add(new Block((i*90)+50,10,rnd));               
+        
+        //I gae lebar e J gae panjang
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 12; j++) {
+                int rnd= (int)(Math.random()*5);
+                block.add(new Block((j*90)+30, 40 * (i+1),rnd)); 
+            }           
         }
         try {
             ballbridge=ImageIO.read(new File("ball_bridge1.png"));
@@ -58,7 +63,6 @@ public class PanelBuatMain extends javax.swing.JPanel {
                 repaint();
             }
         });
-        t.start();
     }
     BufferedImage ballbridge;
     @Override
@@ -66,7 +70,9 @@ public class PanelBuatMain extends javax.swing.JPanel {
         super.paintComponent(grphcs); 
                 Graphics2D g2 = (Graphics2D)grphcs;
         //posisi x,y,ukuran,ukuran,
-        g2.drawImage(ballbridge,x,this.getHeight()-50,150,50,null);
+        System.out.println(this.getHeight() + "Ini height");
+        System.out.println(this.getWidth()+ "Ini wisth");
+        g2.drawImage(ballbridge,xBoard,this.getHeight()-50,150,50,null);
         for (int i = 0; i < block.size(); i++) {
             g2.drawImage(block.get(i).getGambarblock(),block.get(i).getX(),block.get(i).getY(), this);
         }        
@@ -77,7 +83,7 @@ public class PanelBuatMain extends javax.swing.JPanel {
         if (ball.getY()<0) {
             ball.setMovey(ball.getMovey()*-1);
         }
-        if (ball.getY()>this.getHeight()-65&& ball.getX()<=x+150 && ball.getX()>=x) {
+        if (ball.getY()>this.getHeight()-65&& ball.getX()<=xBoard+150 && ball.getX()>=xBoard) {
             ball.setMovey(ball.getMovey()*-1);
         }
         if (ball.getX()<0) {
@@ -85,7 +91,7 @@ public class PanelBuatMain extends javax.swing.JPanel {
         }
         if (ball.getY()>this.getHeight()) {
             t.stop();
-            JOptionPane.showMessageDialog(this,"Bola Anda Jatuh");
+            JOptionPane.showMessageDialog(this,"Bola Anda Jatuh" + this.getHeight());
             ball.setX(100);
             ball.setY(100);
             t.start();
@@ -164,17 +170,20 @@ public class PanelBuatMain extends javax.swing.JPanel {
         char a = evt.getKeyChar();
         System.out.println(evt.getKeyChar());
         if (a=='a') {
-            if (x>0) {
-                x-=30;
+            if (xBoard>0) {
+                xBoard-=30;
             }
             
         }
         if (a=='d') {
            
-            if ((x+150)<this.getWidth()) {
-                x+=30;
+            if ((xBoard+150)<this.getWidth()) {
+                xBoard+=30;
             }
             
+        }
+        if (a==' ') {
+            t.start();
         }
         repaint();
     }//GEN-LAST:event_formKeyPressed
