@@ -20,8 +20,8 @@ public class Ball {
     public Ball(int x, int y) {
         this.x = x;
         this.y = y;
-        this.movex = 2;
-        this.movey = 2;
+        this.movex = 1;
+        this.movey = 1;
         ImageIcon gmbr=new ImageIcon("Ball.jpg");
         Image img=gmbr.getImage();
         Image newimg=img.getScaledInstance(15,15,java.awt.Image.SCALE_SMOOTH);

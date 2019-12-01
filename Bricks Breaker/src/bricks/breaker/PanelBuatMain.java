@@ -9,6 +9,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
@@ -33,20 +34,21 @@ public class PanelBuatMain extends javax.swing.JPanel {
     /**
      * Creates new form PanelBuatMain
      */
-    int xBoard=this.getWidth()/2;;
-    Ball ball=new Ball(xBoard + 75, 280);
-    Timer t;
+    int xBoard;
+    Ball ball;
+    Timer t, b;
     int xbola=100,ybola=100,movexbola=2,moveybola=2;
     ArrayList<Block>block=new ArrayList<>();
     public PanelBuatMain() {
         initComponents();
-        
+        xBoard = this.getWidth()/2;
+        ball=new Ball(xBoard + 75, 280);
         
         //I gae lebar e J gae panjang
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 12; j++) {
                 int rnd= (int)(Math.random()*5);
-                block.add(new Block((j*90)+30, 40 * (i+1),rnd)); 
+                block.add(new Block((j*90)+30, 50 * (i+1),rnd)); 
             }           
         }
         try {
@@ -55,12 +57,34 @@ public class PanelBuatMain extends javax.swing.JPanel {
             Logger.getLogger(From.class.getName()).log(Level.SEVERE, null, ex);
         }
         this.setFocusable(true);
-        t =new Timer(20,new ActionListener() {
+        t =new Timer(10,new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 ball.setX(ball.getX()+ball.getMovex());
                 ball.setY(ball.getY()+ball.getMovey());
                 repaint();
+            }
+        });
+        b = new Timer(1, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                for (Block bl : block) {
+                    Rectangle ktk = new Rectangle(bl.getX(), bl.getY(), bl.getWidth(), bl.getHeight());
+                    if(ktk.intersects(new Rectangle(ball.getX(), ball.getY(), 15, 15))){
+                        if (ball.getX()+15 >= bl.getX() && ball.getX() <= bl.getX()+bl.getWidth()) {
+                            if (ball.getY()+15 <= bl.getY() && ball.getY() >= bl.getY()+bl.getWidth()){
+                                ball.setMovey(ball.getMovey()*-1);
+                                System.out.println("YYYYYYYYYY");
+                            }
+                            else if (ball.getY()+15 >= bl.getY() && ball.getY() <= bl.getY()+bl.getHeight()) {
+                                ball.setMovey(ball.getMovey()*-1);
+                                System.out.println("XXXXXXXXX");
+                            }
+                            
+                        }
+                        repaint();
+                    }
+                }
             }
         });
     }
@@ -70,8 +94,6 @@ public class PanelBuatMain extends javax.swing.JPanel {
         super.paintComponent(grphcs); 
                 Graphics2D g2 = (Graphics2D)grphcs;
         //posisi x,y,ukuran,ukuran,
-        System.out.println(this.getHeight() + "Ini height");
-        System.out.println(this.getWidth()+ "Ini wisth");
         g2.drawImage(ballbridge,xBoard,this.getHeight()-50,150,50,null);
         for (int i = 0; i < block.size(); i++) {
             g2.drawImage(block.get(i).getGambarblock(),block.get(i).getX(),block.get(i).getY(), this);
@@ -184,6 +206,7 @@ public class PanelBuatMain extends javax.swing.JPanel {
         }
         if (a==' ') {
             t.start();
+            b.start();
         }
         repaint();
     }//GEN-LAST:event_formKeyPressed
