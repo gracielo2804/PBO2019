@@ -39,7 +39,7 @@ public class PanelBuatMain extends javax.swing.JPanel {
     /**
      * Creates new form PanelBuatMain
      */
-    int xBoard;
+    int xBoard,skor =0;
     Ball ball;
     Timer t, b;
     int xbola=100,ybola=100,movexbola=2,moveybola=2;
@@ -76,6 +76,7 @@ public class PanelBuatMain extends javax.swing.JPanel {
                 for (Block bl : block) {
                     Rectangle ktk = new Rectangle(bl.getX(), bl.getY(), bl.getWidth(), bl.getHeight());
                     if(ktk.intersects(new Rectangle(ball.getX(), ball.getY(), 15, 15))){
+
 //                        if (ball.getX()+15 >= bl.getX() && ball.getX() <= bl.getX()+bl.getWidth()) {
 //                            if (ball.getY()+15 <= bl.getY() && ball.getY() >= bl.getY()+bl.getWidth()){
 //                                ball.setMovey(ball.getMovey()*-1);
@@ -88,37 +89,42 @@ public class PanelBuatMain extends javax.swing.JPanel {
 //                            
 //                        }
                         if (ball.getMovex()>0 && ball.getMovey()>0) {
-                            if (ball.getX() >= bl.getX()+bl.getWidth() && ball.getX()+15 <= bl.getX() && ball.getY()+15 <= bl.getY()+bl.getHeight() && ball.getY()>=bl.getY()+bl.getHeight()) {
+                            
+                           
+                            if (ball.getX()+15 == bl.getX() && ball.getY() >= bl.getY()-14 && ball.getY()<=bl.getY()+bl.getHeight()) {
                                 ball.setMovex(ball.getMovex()*-1);
                                 bl.hit();
+                                skor++;
                                 Music("Beep8.wav");
-                            }else if (ball.getY()>=bl.getY()&&ball.getY()>=bl.getY()+15&& ball.getX()<=bl.getX()+50 &&ball.getY()>=bl.getX()) {
+                            }else if (ball.getY()+15==bl.getY()&& ball.getX()+15>=bl.getX() &&ball.getX()<=bl.getX()+bl.getWidth()) {                                
                                 ball.setMovey(ball.getMovey()*-1);
                                 bl.hit();Music("Beep8.wav");
                             }
                         }else if (ball.getMovex()>0 && ball.getMovey()<0) {
-                            if (ball.getX()>=bl.getX()&& ball.getX()<=bl.getX()+15&&ball.getY()<=bl.getY()+25 &&ball.getY()>=bl.getY()) {
+                            if (ball.getX()+15 == bl.getX() && ball.getY() >= bl.getY()-14 && ball.getY()<=bl.getY()+bl.getHeight()) {
                                 ball.setMovex(ball.getMovex()*-1);
-                                bl.hit();Music("Beep8.wav");
-                            }else if (ball.getY()>=bl.getY()+25&&ball.getY()>=bl.getY()+10&& ball.getX()<=bl.getX()+50 &&ball.getY()>=bl.getX()) {
+                                bl.hit();
+                                skor++;
+                                Music("Beep8.wav");
+                            }else if (ball.getY()==bl.getY()+bl.getHeight()&& ball.getX()<=bl.getX()+bl.getWidth() &&ball.getY()-14>=bl.getX()) {
                                 ball.setMovey(ball.getMovey()*-1);
-                                bl.hit();Music("Beep8.wav");
+                                bl.hit();Music("Beep8.wav");skor++;
                             }
                         }else if (ball.getMovex()<0 && ball.getMovey()>0) {
-                            if (ball.getX()>=bl.getX()+50&&ball.getX()<=bl.getX()+35&& ball.getY()<=bl.getY()+25 &&ball.getY()>=bl.getY()) {
+                            if (ball.getX()==bl.getX()+bl.getWidth()&&ball.getY()>=bl.getY()-14 &&ball.getY()<=bl.getY()+bl.getHeight()) {
                                 ball.setMovex(ball.getMovex()*-1);
-                                bl.hit();Music("Beep8.wav");
-                            }else if (ball.getY()>=bl.getY()&&ball.getY()>=bl.getY()+15&& ball.getX()<=bl.getX()+50 &&ball.getY()>=bl.getX()) {
+                                bl.hit();Music("Beep8.wav");skor++;
+                            }else if (ball.getY()+15==bl.getY()&& ball.getX()<=bl.getX()-14 &&ball.getX()>=bl.getX()+bl.getWidth()) {
                                 ball.setMovey(ball.getMovey()*-1);
                                 bl.hit();Music("Beep8.wav");
                             }
                         }else if (ball.getMovex()<0 && ball.getMovey() <0) {
-                            if (ball.getX()>=bl.getX()+50&&ball.getX()<=bl.getX()+35&& ball.getY()<=bl.getY()+25 &&ball.getY()>=bl.getY()) {
+                            if (ball.getX()==bl.getX()+bl.getWidth()&&ball.getY()>=bl.getY()-14 &&ball.getY()<=bl.getY()+bl.getHeight()) {
                                 ball.setMovex(ball.getMovex()*-1);
-                                bl.hit();Music("Beep8.wav");
-                            }else if (ball.getY()>=bl.getY()&&ball.getY()>=bl.getY()+15&& ball.getX()<=bl.getX()+50 &&ball.getY()>=bl.getX()) {
+                                bl.hit();Music("Beep8.wav");skor++;
+                            }else if (ball.getY()==bl.getY()+bl.getHeight()&& ball.getX()<=bl.getX()+bl.getWidth() &&ball.getY()-14>=bl.getX()) {
                                 ball.setMovey(ball.getMovey()*-1);
-                                bl.hit();Music("Beep8.wav");
+                                bl.hit();Music("Beep8.wav");skor++;
                             }
                         }
                         repaint();
@@ -133,6 +139,8 @@ public class PanelBuatMain extends javax.swing.JPanel {
         super.paintComponent(grphcs); 
                 Graphics2D g2 = (Graphics2D)grphcs;
         //posisi x,y,ukuran,ukuran,
+        g2.setColor(Color.BLACK);
+        g2.drawString("Skor : "+String.valueOf(skor),300,300);
         g2.drawImage(ballbridge,xBoard,this.getHeight()-50,150,50,null);
         for (int i = 0; i < block.size(); i++) {
             g2.drawImage(block.get(i).getGambarblock(),block.get(i).getX(),block.get(i).getY(), this);
@@ -153,10 +161,11 @@ public class PanelBuatMain extends javax.swing.JPanel {
         }
         if (ball.getY()>this.getHeight()) {
             t.stop();
-            JOptionPane.showMessageDialog(this,"Bola Anda Jatuh" + this.getHeight());
+            JOptionPane.showMessageDialog(this,"Game Over" + this.getHeight());
             ball.setX(100);
             ball.setY(100);
-            t.start();
+            t.stop();
+            
         }     
 //        for (int i = 0; i < block.size(); i++) {
 //            if (ball.getMovex()>0&ball.getMovey()>0) {
@@ -262,6 +271,10 @@ public static void Music(String file){
         }
     }
 
+private void mbox()
+    {
+        JOptionPane.showMessageDialog(this,"cek");
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
 }
