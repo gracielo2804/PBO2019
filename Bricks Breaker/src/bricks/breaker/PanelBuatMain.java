@@ -71,16 +71,49 @@ public class PanelBuatMain extends javax.swing.JPanel {
                 for (Block bl : block) {
                     Rectangle ktk = new Rectangle(bl.getX(), bl.getY(), bl.getWidth(), bl.getHeight());
                     if(ktk.intersects(new Rectangle(ball.getX(), ball.getY(), 15, 15))){
-                        if (ball.getX()+15 >= bl.getX() && ball.getX() <= bl.getX()+bl.getWidth()) {
-                            if (ball.getY()+15 <= bl.getY() && ball.getY() >= bl.getY()+bl.getWidth()){
+//                        if (ball.getX()+15 >= bl.getX() && ball.getX() <= bl.getX()+bl.getWidth()) {
+//                            if (ball.getY()+15 <= bl.getY() && ball.getY() >= bl.getY()+bl.getWidth()){
+//                                ball.setMovey(ball.getMovey()*-1);
+//                                System.out.println("YYYYYYYYYY");
+//                            }
+//                            else if (ball.getY()+15 >= bl.getY() && ball.getY() <= bl.getY()+bl.getHeight()) {
+//                                ball.setMovey(ball.getMovey()*-1);
+//                                System.out.println("XXXXXXXXX");
+//                            }
+//                            
+//                        }
+                        if (ball.getMovex()>0 && ball.getMovey()>0) {
+                            if (ball.getX() >= bl.getX()+bl.getWidth() && ball.getX()+15 <= bl.getX() && ball.getY()+15 <= bl.getY()+bl.getHeight() && ball.getY()>=bl.getY()+bl.getHeight()) {
+                                ball.setMovex(ball.getMovex()*-1);
+                                bl.hit();
+                            }else if (ball.getY()>=bl.getY()&&ball.getY()>=bl.getY()+15&& ball.getX()<=bl.getX()+50 &&ball.getY()>=bl.getX()) {
                                 ball.setMovey(ball.getMovey()*-1);
-                                System.out.println("YYYYYYYYYY");
+                                bl.hit();
                             }
-                            else if (ball.getY()+15 >= bl.getY() && ball.getY() <= bl.getY()+bl.getHeight()) {
+                        }else if (ball.getMovex()>0 && ball.getMovey()<0) {
+                            if (ball.getX()>=bl.getX()&& ball.getX()<=bl.getX()+15&&ball.getY()<=bl.getY()+25 &&ball.getY()>=bl.getY()) {
+                                ball.setMovex(ball.getMovex()*-1);
+                                bl.hit();
+                            }else if (ball.getY()>=bl.getY()+25&&ball.getY()>=bl.getY()+10&& ball.getX()<=bl.getX()+50 &&ball.getY()>=bl.getX()) {
                                 ball.setMovey(ball.getMovey()*-1);
-                                System.out.println("XXXXXXXXX");
+                                bl.hit();
                             }
-                            
+                        }else if (ball.getMovex()<0 && ball.getMovey()>0) {
+                            if (ball.getX()>=bl.getX()+50&&ball.getX()<=bl.getX()+35&& ball.getY()<=bl.getY()+25 &&ball.getY()>=bl.getY()) {
+                                ball.setMovex(ball.getMovex()*-1);
+                                bl.hit();
+                            }else if (ball.getY()>=bl.getY()&&ball.getY()>=bl.getY()+15&& ball.getX()<=bl.getX()+50 &&ball.getY()>=bl.getX()) {
+                                ball.setMovey(ball.getMovey()*-1);
+                                bl.hit();
+                            }
+                        }else if (ball.getMovex()<0 && ball.getMovey() <0) {
+                            if (ball.getX()>=bl.getX()+50&&ball.getX()<=bl.getX()+35&& ball.getY()<=bl.getY()+25 &&ball.getY()>=bl.getY()) {
+                                ball.setMovex(ball.getMovex()*-1);
+                                bl.hit();
+                            }else if (ball.getY()>=bl.getY()&&ball.getY()>=bl.getY()+15&& ball.getX()<=bl.getX()+50 &&ball.getY()>=bl.getX()) {
+                                ball.setMovey(ball.getMovey()*-1);
+                                bl.hit();
+                            }
                         }
                         repaint();
                     }

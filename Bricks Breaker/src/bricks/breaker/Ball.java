@@ -21,7 +21,7 @@ public class Ball {
         this.x = x;
         this.y = y;
         this.movex = 1;
-        this.movey = 1;
+        this.movey = 1  ;
         ImageIcon gmbr=new ImageIcon("Ball.jpg");
         Image img=gmbr.getImage();
         Image newimg=img.getScaledInstance(15,15,java.awt.Image.SCALE_SMOOTH);
