@@ -5,6 +5,7 @@
  */
 package bricks.breaker;
 
+import static bricks.breaker.From.Music;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -14,7 +15,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -24,6 +27,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.Timer;
+import sun.audio.AudioPlayer;
+import sun.audio.AudioStream;
 
 /**
  *
@@ -86,33 +91,34 @@ public class PanelBuatMain extends javax.swing.JPanel {
                             if (ball.getX() >= bl.getX()+bl.getWidth() && ball.getX()+15 <= bl.getX() && ball.getY()+15 <= bl.getY()+bl.getHeight() && ball.getY()>=bl.getY()+bl.getHeight()) {
                                 ball.setMovex(ball.getMovex()*-1);
                                 bl.hit();
+                                Music("Beep8.wav");
                             }else if (ball.getY()>=bl.getY()&&ball.getY()>=bl.getY()+15&& ball.getX()<=bl.getX()+50 &&ball.getY()>=bl.getX()) {
                                 ball.setMovey(ball.getMovey()*-1);
-                                bl.hit();
+                                bl.hit();Music("Beep8.wav");
                             }
                         }else if (ball.getMovex()>0 && ball.getMovey()<0) {
                             if (ball.getX()>=bl.getX()&& ball.getX()<=bl.getX()+15&&ball.getY()<=bl.getY()+25 &&ball.getY()>=bl.getY()) {
                                 ball.setMovex(ball.getMovex()*-1);
-                                bl.hit();
+                                bl.hit();Music("Beep8.wav");
                             }else if (ball.getY()>=bl.getY()+25&&ball.getY()>=bl.getY()+10&& ball.getX()<=bl.getX()+50 &&ball.getY()>=bl.getX()) {
                                 ball.setMovey(ball.getMovey()*-1);
-                                bl.hit();
+                                bl.hit();Music("Beep8.wav");
                             }
                         }else if (ball.getMovex()<0 && ball.getMovey()>0) {
                             if (ball.getX()>=bl.getX()+50&&ball.getX()<=bl.getX()+35&& ball.getY()<=bl.getY()+25 &&ball.getY()>=bl.getY()) {
                                 ball.setMovex(ball.getMovex()*-1);
-                                bl.hit();
+                                bl.hit();Music("Beep8.wav");
                             }else if (ball.getY()>=bl.getY()&&ball.getY()>=bl.getY()+15&& ball.getX()<=bl.getX()+50 &&ball.getY()>=bl.getX()) {
                                 ball.setMovey(ball.getMovey()*-1);
-                                bl.hit();
+                                bl.hit();Music("Beep8.wav");
                             }
                         }else if (ball.getMovex()<0 && ball.getMovey() <0) {
                             if (ball.getX()>=bl.getX()+50&&ball.getX()<=bl.getX()+35&& ball.getY()<=bl.getY()+25 &&ball.getY()>=bl.getY()) {
                                 ball.setMovex(ball.getMovex()*-1);
-                                bl.hit();
+                                bl.hit();Music("Beep8.wav");
                             }else if (ball.getY()>=bl.getY()&&ball.getY()>=bl.getY()+15&& ball.getX()<=bl.getX()+50 &&ball.getY()>=bl.getX()) {
                                 ball.setMovey(ball.getMovey()*-1);
-                                bl.hit();
+                                bl.hit();Music("Beep8.wav");
                             }
                         }
                         repaint();
@@ -140,6 +146,7 @@ public class PanelBuatMain extends javax.swing.JPanel {
         }
         if (ball.getY()>this.getHeight()-65&& ball.getX()<=xBoard+150 && ball.getX()>=xBoard) {
             ball.setMovey(ball.getMovey()*-1);
+            Music("Paddle Sound.wav");
         }
         if (ball.getX()<0) {
             ball.setMovex(ball.getMovex()*-1);
@@ -243,7 +250,17 @@ public class PanelBuatMain extends javax.swing.JPanel {
         }
         repaint();
     }//GEN-LAST:event_formKeyPressed
-
+public static void Music(String file){
+        InputStream music;
+        
+        try{
+            music = new FileInputStream(new File(file));
+            AudioStream audio = new AudioStream(music);
+            AudioPlayer.player.start(audio);
+        }catch(Exception e){
+            
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables

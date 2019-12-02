@@ -43,7 +43,7 @@ public class GamePanel extends javax.swing.JPanel {
     public String status="";
     ArrayList<JLabel> arrlabel = new ArrayList<JLabel>();
     public GamePanel() {
-        Music("jiancok.wav");
+        Music("avengers.wav");
         initComponents();
                 initComponents();
          try {

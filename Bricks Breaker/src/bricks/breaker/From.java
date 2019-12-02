@@ -58,7 +58,7 @@ public class From extends javax.swing.JFrame {
             }
         }
         );
-        Music("bg.wav");
+        Music("avengers.wav");
     }
     public static void Music(String file){
         InputStream music;
