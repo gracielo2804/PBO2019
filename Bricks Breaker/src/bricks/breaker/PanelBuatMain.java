@@ -90,7 +90,7 @@ public class PanelBuatMain extends javax.swing.JPanel {
                         //arah bola daro jam 7 ke jam 2
                         }else if (ball.getMovex()>0 && ball.getMovey()<0) {
                             if(ktk.intersects(new Rectangle(ball.getX(), ball.getY(), 15, 15))){
-                                if ((ball.getX()+15)>=bl.getX()&&ball.getY()>=(bl.getY( )+bl.getHeight())) {
+                                if ((ball.getX()+15)>=bl.getX()&&ball.getY()>=( bl.getY()+bl.getHeight())) {
                                     ball.kiriatas();
                                     bl.hit();Music("Beep8.wav");skor++;
                                     System.out.println("kiri atas");
@@ -107,7 +107,7 @@ public class PanelBuatMain extends javax.swing.JPanel {
                         }else if (ball.getMovex()<0 && ball.getMovey()<0) {
                         if(ktk.intersects(new Rectangle(ball.getX(), ball.getY(), 15, 15)))
                         {
-                            if (ball.getX()-15<=(bl.getX()+bl.getWidth()) && ball.getY()<= (bl.getY()+bl.getHeight())) {
+                            if (ball.getX()-5<=(bl.getX()+bl.getWidth()) && ball.getY()>= bl.getY()) {
                                 ball.kananatas();
                                 bl.hit();
                                 System.out.println("kanan atas");
@@ -176,7 +176,7 @@ public class PanelBuatMain extends javax.swing.JPanel {
             if (ball.getMovex()>0 && ball.getMovey()>0 ) {
                 ball.kiribawah();   
             }
-            else {
+            else if(ball.getMovex()>0&&ball.getMovey()<0){
                 ball.kiriatas();
             }
         }
@@ -184,7 +184,7 @@ public class PanelBuatMain extends javax.swing.JPanel {
             if (ball.getMovex()<0 && ball.getMovey()<0) {
                 ball.kananatas();
             }
-            else {
+            else if(ball.getMovex()<0 && ball.getMovey()>0){
                 ball.kananbawah();
             }
         }
