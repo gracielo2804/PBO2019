@@ -62,7 +62,7 @@ public class PanelBuatMain extends javax.swing.JPanel {
             Logger.getLogger(From.class.getName()).log(Level.SEVERE, null, ex);
         }
         this.setFocusable(true);
-        t =new Timer(1,new ActionListener() {
+        t =new Timer(10,new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 for (Block bl : block) {
@@ -90,16 +90,11 @@ public class PanelBuatMain extends javax.swing.JPanel {
                         //arah bola daro jam 7 ke jam 2
                         }else if (ball.getMovex()>0 && ball.getMovey()<0) {
                             if(ktk.intersects(new Rectangle(ball.getX(), ball.getY(), 15, 15))){
-                                if (ball.getX()+15>=bl.getX()&&ball.getY()>=bl.getY()+bl.getHeight()) {
+                                if ((ball.getX()+15)>=bl.getX()&&ball.getY()>=(bl.getY( )+bl.getHeight())) {
                                     ball.kiriatas();
                                     bl.hit();Music("Beep8.wav");skor++;
                                     System.out.println("kiri atas");
                                 }
-//                                if (ball.getY()>=(bl.getY()+bl.getHeight())&& ball.getX()<=(bl.getX()+bl.getWidth()) &&(ball.getY()-14)>=bl.getX()) {
-//                                    ball.kiriatas();
-//                                    bl.hit();Music("Beep8.wav");skor++;
-//                                    System.out.println("kiri atas");
-//                                }
                                 else  
                                 {
                                     ball.kananbawah();
@@ -112,7 +107,7 @@ public class PanelBuatMain extends javax.swing.JPanel {
                         }else if (ball.getMovex()<0 && ball.getMovey()<0) {
                         if(ktk.intersects(new Rectangle(ball.getX(), ball.getY(), 15, 15)))
                         {
-                            if (ball.getX()-15<=bl.getX()+bl.getWidth() && ball.getY()>= bl.getY()+bl.getHeight()) {
+                            if (ball.getX()-15<=(bl.getX()+bl.getWidth()) && ball.getY()<= (bl.getY()+bl.getHeight())) {
                                 ball.kananatas();
                                 bl.hit();
                                 System.out.println("kanan atas");
@@ -130,11 +125,11 @@ public class PanelBuatMain extends javax.swing.JPanel {
                         }else if (ball.getMovex()<0 && ball.getMovey() >0) {
                         if(ktk.intersects(new Rectangle(ball.getX(), ball.getY(), 15, 15)))
                         {
-                            if (ball.getX()>=bl.getX()+bl.getWidth() && ball.getY()>=bl.getY()+bl.getHeight()) {
+                            if (ball.getX()>=(bl.getX()+bl.getWidth()) && ball.getY()>=(bl.getY()+bl.getHeight())) {
                                 ball.kananbawah();
                                 bl.hit();
                                 Music("Beep8.wav");
-                                System.out.println("kanan atas");
+                                System.out.println("kanan bawah");
                                 skor++;   
                             }
                             else
@@ -175,8 +170,9 @@ public class PanelBuatMain extends javax.swing.JPanel {
 //        }
         if (ball.getY()>this.getHeight()-65 ) {
             ball.setMovey(-1);
+            Music("Paddle Sound.wav");
         }
-        if (ball.getX()+10>this.getWidth()-25) {
+        if (ball.getX()+10>this.getWidth()) {
             if (ball.getMovex()>0 && ball.getMovey()>0 ) {
                 ball.kiribawah();   
             }
@@ -184,7 +180,7 @@ public class PanelBuatMain extends javax.swing.JPanel {
                 ball.kiriatas();
             }
         }
-        if (ball.getX()<=this.getX()+10) {
+        if (ball.getX()<=this.getX()) {
             if (ball.getMovex()<0 && ball.getMovey()<0) {
                 ball.kananatas();
             }
