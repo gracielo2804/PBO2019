@@ -93,10 +93,10 @@ public class Block{
        switch (life) {
             case -1 : 
                 GambarBlock=null;                
-                x=0;
-                y=0;
-                width=0;
-                height=0;                
+                this.x=0;
+                this.y=0;
+                this.width=0;
+                this.height=0;                
             case 0:
                 img=new ImageIcon("Brick.png");
                 break;
