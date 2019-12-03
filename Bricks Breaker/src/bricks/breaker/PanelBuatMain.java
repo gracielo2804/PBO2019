@@ -62,74 +62,95 @@ public class PanelBuatMain extends javax.swing.JPanel {
             Logger.getLogger(From.class.getName()).log(Level.SEVERE, null, ex);
         }
         this.setFocusable(true);
-        t =new Timer(10,new ActionListener() {
+        t =new Timer(1,new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                ball.setX(ball.getX()+ball.getMovex());
-                ball.setY(ball.getY()+ball.getMovey());
-                repaint();
-            }
-        });
-        b = new Timer(1, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
                 for (Block bl : block) {
                     Rectangle ktk = new Rectangle(bl.getX(), bl.getY(), bl.getWidth(), bl.getHeight());
                     if(ktk.intersects(new Rectangle(ball.getX(), ball.getY(), 15, 15))){
-
-//                        if (ball.getX()+15 >= bl.getX() && ball.getX() <= bl.getX()+bl.getWidth()) {
-//                            if (ball.getY()+15 <= bl.getY() && ball.getY() >= bl.getY()+bl.getWidth()){
-//                                ball.setMovey(ball.getMovey()*-1);
-//                                System.out.println("YYYYYYYYYY");
-//                            }
-//                            else if (ball.getY()+15 >= bl.getY() && ball.getY() <= bl.getY()+bl.getHeight()) {
-//                                ball.setMovey(ball.getMovey()*-1);
-//                                System.out.println("XXXXXXXXX");
-//                            }
-//                            
-//                        }
+                        //arah bola dari jam 10 ke jam 5
                         if (ball.getMovex()>0 && ball.getMovey()>0) {
-                            
-                           
-                            if (ball.getX()+15 == bl.getX() && ball.getY() >= bl.getY()-14 && ball.getY()<=bl.getY()+bl.getHeight()) {
-                                ball.setMovex(ball.getMovex()*-1);
-                                bl.hit();
-                                skor++;
-                                Music("Beep8.wav");
-                            }else if (ball.getY()+15==bl.getY()&& ball.getX()+15>=bl.getX() &&ball.getX()<=bl.getX()+bl.getWidth()) {                                
-                                ball.setMovey(ball.getMovey()*-1);
-                                bl.hit();Music("Beep8.wav");
+                            if(ktk.intersects(new Rectangle(ball.getX(), ball.getY(), 15, 15))) {
+                                if ((ball.getY()+15)>=bl.getY()&& (ball.getX()+15)>=bl.getX()){
+                                    //kalau natap bagian kiri
+                                    ball.kiribawah();
+                                    bl.hit();
+                                    Music("Beep8.wav");
+                                    System.out.println("kiri bawah");
+                                }
+                                else
+                                {
+                                    //bagian atas 
+                                    ball.kananatas();
+                                    bl.hit();
+                                    skor++;
+                                    Music("Beep8.wav");
+                                }
                             }
+                        //arah bola daro jam 7 ke jam 2
                         }else if (ball.getMovex()>0 && ball.getMovey()<0) {
-                            if (ball.getX()+15 == bl.getX() && ball.getY() >= bl.getY()-14 && ball.getY()<=bl.getY()+bl.getHeight()) {
-                                ball.setMovex(ball.getMovex()*-1);
+                            if(ktk.intersects(new Rectangle(ball.getX(), ball.getY(), 15, 15))){
+                                if (ball.getX()+15>=bl.getX()&&ball.getY()>=bl.getY()+bl.getHeight()) {
+                                    ball.kiriatas();
+                                    bl.hit();Music("Beep8.wav");skor++;
+                                    System.out.println("kiri atas");
+                                }
+//                                if (ball.getY()>=(bl.getY()+bl.getHeight())&& ball.getX()<=(bl.getX()+bl.getWidth()) &&(ball.getY()-14)>=bl.getX()) {
+//                                    ball.kiriatas();
+//                                    bl.hit();Music("Beep8.wav");skor++;
+//                                    System.out.println("kiri atas");
+//                                }
+                                else  
+                                {
+                                    ball.kananbawah();
+                                    bl.hit();
+                                    skor++;
+                                    Music("Beep8.wav");
+                                }
+                            }
+                        //arah bola dari jam 5 ke jam 10
+                        }else if (ball.getMovex()<0 && ball.getMovey()<0) {
+                        if(ktk.intersects(new Rectangle(ball.getX(), ball.getY(), 15, 15)))
+                        {
+                            if (ball.getX()-15<=bl.getX()+bl.getWidth() && ball.getY()>= bl.getY()+bl.getHeight()) {
+                                ball.kananatas();
                                 bl.hit();
-                                skor++;
+                                System.out.println("kanan atas");
                                 Music("Beep8.wav");
-                            }else if (ball.getY()==bl.getY()+bl.getHeight()&& ball.getX()<=bl.getX()+bl.getWidth() &&ball.getY()-14>=bl.getX()) {
-                                ball.setMovey(ball.getMovey()*-1);
-                                bl.hit();Music("Beep8.wav");skor++;
+                                skor++;
                             }
-                        }else if (ball.getMovex()<0 && ball.getMovey()>0) {
-                            if (ball.getX()==bl.getX()+bl.getWidth()&&ball.getY()>=bl.getY()-14 &&ball.getY()<=bl.getY()+bl.getHeight()) {
-                                ball.setMovex(ball.getMovex()*-1);
-                                bl.hit();Music("Beep8.wav");skor++;
-                            }else if (ball.getY()+15==bl.getY()&& ball.getX()<=bl.getX()-14 &&ball.getX()>=bl.getX()+bl.getWidth()) {
-                                ball.setMovey(ball.getMovey()*-1);
-                                bl.hit();Music("Beep8.wav");
-                            }
-                        }else if (ball.getMovex()<0 && ball.getMovey() <0) {
-                            if (ball.getX()==bl.getX()+bl.getWidth()&&ball.getY()>=bl.getY()-14 &&ball.getY()<=bl.getY()+bl.getHeight()) {
-                                ball.setMovex(ball.getMovex()*-1);
-                                bl.hit();Music("Beep8.wav");skor++;
-                            }else if (ball.getY()==bl.getY()+bl.getHeight()&& ball.getX()<=bl.getX()+bl.getWidth() &&ball.getY()-14>=bl.getX()) {
-                                ball.setMovey(ball.getMovey()*-1);
-                                bl.hit();Music("Beep8.wav");skor++;
+                            else{
+                                ball.kiribawah();
+                                bl.hit();
+                                Music("Beep8.wav");
+                                skor++;   
                             }
                         }
+                        //arah bola  daro jam 2 ke jam 7
+                        }else if (ball.getMovex()<0 && ball.getMovey() >0) {
+                        if(ktk.intersects(new Rectangle(ball.getX(), ball.getY(), 15, 15)))
+                        {
+                            if (ball.getX()>=bl.getX()+bl.getWidth() && ball.getY()>=bl.getY()+bl.getHeight()) {
+                                ball.kananbawah();
+                                bl.hit();
+                                Music("Beep8.wav");
+                                System.out.println("kanan atas");
+                                skor++;   
+                            }
+                            else
+                            {
+                                ball.kiriatas();
+                                bl.hit();
+                                Music("Beep8.wav");
+                                skor++;   
+                            }
+                        }}
                         repaint();
                     }
                 }
+                ball.setX(ball.getX()+ball.getMovex());
+                ball.setY(ball.getY()+ball.getMovey());
+                repaint();
             }
         });
     }
@@ -137,27 +158,42 @@ public class PanelBuatMain extends javax.swing.JPanel {
     @Override
     protected void paintComponent(Graphics grphcs) {
         super.paintComponent(grphcs); 
-                Graphics2D g2 = (Graphics2D)grphcs;
+        Graphics2D g2 = (Graphics2D)grphcs;
         //posisi x,y,ukuran,ukuran,
         g2.setColor(Color.BLACK);
         g2.drawString("Skor : "+String.valueOf(skor),300,300);
-        g2.drawImage(ballbridge,xBoard,this.getHeight()-50,150,50,null);
+        //tester auto pilot tinggal,manual pake yg xboard 
+//        g2.drawImage(ballbridge,xBoard,this.getHeight()-50,150,50,null);
+        g2.drawImage(ballbridge,ball.getX()-50,this.getHeight()-50,150,50,null);
         for (int i = 0; i < block.size(); i++) {
             g2.drawImage(block.get(i).getGambarblock(),block.get(i).getX(),block.get(i).getY(), this);
         }        
         g2.setColor(Color.blue);
-        if (ball.getX()>this.getWidth()-30) {
-            ball.setMovex(ball.getMovex()*-1);
+//        if (ball.getY()>this.getHeight()-65&& ball.getX()<=xBoard+150 && ball.getX()>=xBoard) {
+//            ball.setMovey(ball.getMovey()*-1);
+//            Music("Paddle Sound.wav");
+//        }
+        if (ball.getY()>this.getHeight()-65 ) {
+            ball.setMovey(-1);
+        }
+        if (ball.getX()+10>this.getWidth()-25) {
+            if (ball.getMovex()>0 && ball.getMovey()>0 ) {
+                ball.kiribawah();   
+            }
+            else {
+                ball.kiriatas();
+            }
+        }
+        if (ball.getX()<=this.getX()+10) {
+            if (ball.getMovex()<0 && ball.getMovey()<0) {
+                ball.kananatas();
+            }
+            else {
+                ball.kananbawah();
+            }
         }
         if (ball.getY()<0) {
             ball.setMovey(ball.getMovey()*-1);
-        }
-        if (ball.getY()>this.getHeight()-65&& ball.getX()<=xBoard+150 && ball.getX()>=xBoard) {
-            ball.setMovey(ball.getMovey()*-1);
-            Music("Paddle Sound.wav");
-        }
-        if (ball.getX()<0) {
-            ball.setMovex(ball.getMovex()*-1);
         }
         if (ball.getY()>this.getHeight()) {
             t.stop();
@@ -165,51 +201,8 @@ public class PanelBuatMain extends javax.swing.JPanel {
             ball.setX(100);
             ball.setY(100);
             t.stop();
-            
-        }     
-//        for (int i = 0; i < block.size(); i++) {
-//            if (ball.getMovex()>0&ball.getMovey()>0) {
-//                if (ball.getX()>=block.get(i).getX()&&ball.getX()<=block.get(i).getX()+15&& ball.getY()<=block.get(i).getY()+25 &&ball.getY()>=block.get(i).getY()) {
-//                    ball.setMovex(ball.getMovex()*-1);
-//                    block.get(i).hit();
-//                }
-//                else if (ball.getY()>=block.get(i).getY()&&ball.getY()>=block.get(i).getY()+15&& ball.getX()<=block.get(i).getX()+50 &&ball.getY()>=block.get(i).getX()) {
-//                    ball.setMovey(ball.getMovey()*-1);
-//                    block.get(i).hit();
-//                }
-//            }
-//            else if (ball.getMovex()>0&ball.getMovey()<0) {
-//                if (ball.getX()>=block.get(i).getX()&& ball.getX()<=block.get(i).getX()+15&&ball.getY()<=block.get(i).getY()+25 &&ball.getY()>=block.get(i).getY()) {
-//                    ball.setMovex(ball.getMovex()*-1);
-//                    block.get(i).hit();
-//                }
-//                else if (ball.getY()>=block.get(i).getY()+25&&ball.getY()>=block.get(i).getY()+10&& ball.getX()<=block.get(i).getX()+50 &&ball.getY()>=block.get(i).getX()) {
-//                    ball.setMovey(ball.getMovey()*-1);
-//                    block.get(i).hit();
-//                }
-//            }
-//            else if (ball.getMovex()<0&ball.getMovey()>0) {
-//                if (ball.getX()>=block.get(i).getX()+50&&ball.getX()<=block.get(i).getX()+35&& ball.getY()<=block.get(i).getY()+25 &&ball.getY()>=block.get(i).getY()) {
-//                    ball.setMovex(ball.getMovex()*-1);
-//                    block.get(i).hit();
-//                }
-//                else if (ball.getY()>=block.get(i).getY()&&ball.getY()>=block.get(i).getY()+15&& ball.getX()<=block.get(i).getX()+50 &&ball.getY()>=block.get(i).getX()) {
-//                    ball.setMovey(ball.getMovey()*-1);
-//                    block.get(i).hit();
-//                }
-//            }
-//            else if (ball.getMovex()<0&ball.getMovey()<0) {
-//                if (ball.getX()>=block.get(i).getX()+50&&ball.getX()<=block.get(i).getX()+35&& ball.getY()<=block.get(i).getY()+25 &&ball.getY()>=block.get(i).getY()) {
-//                    ball.setMovex(ball.getMovex()*-1);
-//                    block.get(i).hit();
-//                }
-//                else if (ball.getY()>=block.get(i).getY()&&ball.getY()>=block.get(i).getY()+15&& ball.getX()<=block.get(i).getX()+50 &&ball.getY()>=block.get(i).getX()) {
-//                    ball.setMovey(ball.getMovey()*-1);
-//                    block.get(i).hit();
-//                }
-//            }
-//        }
-                
+        }
+        
         g2.drawImage(ball.getGambarbola(), ball.getX(),ball.getY(), this);
         
         repaint();
@@ -239,7 +232,6 @@ public class PanelBuatMain extends javax.swing.JPanel {
 
     private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
         char a = evt.getKeyChar();
-        System.out.println(evt.getKeyChar());
         if (a=='a') {
             if (xBoard>0) {
                 xBoard-=30;
@@ -255,7 +247,6 @@ public class PanelBuatMain extends javax.swing.JPanel {
         }
         if (a==' ') {
             t.start();
-            b.start();
         }
         repaint();
     }//GEN-LAST:event_formKeyPressed
