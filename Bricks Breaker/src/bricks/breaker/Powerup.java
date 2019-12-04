@@ -1,25 +1,19 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package bricks.breaker;
 
-/**
- *
- * @author ASUS
- */
+import java.awt.Image;
+
+
 public class Powerup {
+    
     String nama;
     int waktu;
-    String efek;
+    Image Gambar;
     int x;
     int y;
 
-    public Powerup(String nama, int waktu, String efek, int x, int y) {
+    public Powerup(String nama, int waktu, int x, int y) {
         this.nama = nama;
         this.waktu = waktu;
-        this.efek = efek;
         this.x = x;
         this.y = y;
     }
@@ -38,14 +32,6 @@ public class Powerup {
 
     public void setWaktu(int waktu) {
         this.waktu = waktu;
-    }
-
-    public String getEfek() {
-        return efek;
-    }
-
-    public void setEfek(String efek) {
-        this.efek = efek;
     }
 
     public int getX() {

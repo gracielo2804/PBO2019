@@ -1,15 +1,18 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package bricks.breaker;
 
+import java.awt.Image;
+import javax.swing.ImageIcon;
 
 public class power_laser extends Powerup{
-    
-    public power_laser(String nama, int waktu, String efek, int x, int y) {
-        super(nama, waktu, efek, x, y);
+        
+    public power_laser(String nama, int waktu, int x, int y) {
+        super(nama, waktu, x, y);
+        ImageIcon img=new ImageIcon("power_laser.png");
+        this.Gambar=img.getImage().getScaledInstance(50, 50,java.awt.Image.SCALE_SMOOTH);
+        
+        
     }
+        
     
 }
