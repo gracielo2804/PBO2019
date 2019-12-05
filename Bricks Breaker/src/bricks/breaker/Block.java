@@ -2,12 +2,15 @@
 package bricks.breaker;
 
 import java.awt.Image;
+import java.util.Random;
+import java.util.Scanner;
 import javax.swing.ImageIcon;
 
 public class Block{
-    int x,y,width,height,life;
+    int x,y,width,height,life,angka;
     Image GambarBlock;
-
+    Random rnd = new Random();
+    Scanner in = new Scanner(System.in);
     public Block(int x, int y, int life) {
         this.x = x;
         this.y = y;
@@ -93,6 +96,10 @@ public class Block{
        switch (life) {
             case -1 : 
                 GambarBlock=null;                
+                angka=rnd.nextInt(5);
+                if (angka==1) {
+                    angka=rnd.nextInt(3);
+                }
                 this.x=0;
                 this.y=0;
                 this.width=0;
@@ -108,7 +115,10 @@ public class Block{
                 break;
             case 3:
                 img=new ImageIcon("Brick3.png");
-                break;            
+                break;
+            case 4:
+                img=new ImageIcon("Brick4.png");
+                break;
             default:
                 break;
         }

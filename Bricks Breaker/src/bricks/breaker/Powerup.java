@@ -17,7 +17,6 @@ public class Powerup {
         this.x = x;
         this.y = y;
     }
-
     public String getNama() {
         return nama;
     }

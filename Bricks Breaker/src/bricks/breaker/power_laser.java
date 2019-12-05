@@ -10,9 +10,5 @@ public class power_laser extends Powerup{
         super(nama, waktu, x, y);
         ImageIcon img=new ImageIcon("power_laser.png");
         this.Gambar=img.getImage().getScaledInstance(50, 50,java.awt.Image.SCALE_SMOOTH);
-        
-        
     }
-        
-    
 }
