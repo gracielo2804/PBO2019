@@ -42,9 +42,9 @@ public class Frame_score extends javax.swing.JFrame {
             for(int i=0; i<dataArray.length;i++)
             {
 
-                 //Collections.sort(datascore, Collections.reverseOrder());
+                //Collections.sort(datascore, Collections.reverseOrder());
                 list_score.add(datascore[i]);
-                jTextArea1.append((i+1)+". "+list_score.get(i)+"\n");
+                jTextArea1.append((i+1)+". "+dataArray[i]+"\n");
             }
             repaint();
             System.out.print(dataArray.length);
