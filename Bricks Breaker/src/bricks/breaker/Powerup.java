@@ -7,6 +7,7 @@ public class Powerup {
     
     String nama;
     int waktu;
+    int life;
     Image Gambar;
     int x;
     int y;
@@ -16,6 +17,7 @@ public class Powerup {
         this.waktu = waktu;
         this.x = x;
         this.y = y;
+        this.life=1;
     }
     public String getNama() {
         return nama;

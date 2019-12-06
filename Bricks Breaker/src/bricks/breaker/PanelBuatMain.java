@@ -39,6 +39,7 @@ public class PanelBuatMain extends javax.swing.JPanel {
     /**
      * Creates new form PanelBuatMain
      */
+    ArrayList<Powerup>power=new ArrayList<Powerup>();
     public Frame2 f;
     int xBoard,skor =0;
     Ball ball;
@@ -63,7 +64,7 @@ public class PanelBuatMain extends javax.swing.JPanel {
             Logger.getLogger(From.class.getName()).log(Level.SEVERE, null, ex);
         }
         this.setFocusable(true);
-        t =new Timer(10,new ActionListener() {
+        t =new Timer(1,new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 for (Block bl : block) {
@@ -71,6 +72,24 @@ public class PanelBuatMain extends javax.swing.JPanel {
                     //arah bola dari jam 10 ke jam 5
                     if (ball.getMovex()>0 && ball.getMovey()>0) {
                         if(ktk.intersects(new Rectangle(ball.getX(), ball.getY(), 15, 15))) {
+                            System.out.println("test");
+                            if(bl.life==0)
+                            {
+                                int randomdapet=(int)(Math.random()*2);
+                                System.out.println(randomdapet);
+                                if (randomdapet==1) {
+                                    int randompower=(int)(Math.random()*3);
+                                    if (randompower==0) {
+                                        power.add(new power_laser("laser1", 0, bl.getX()+5, bl.getY()));
+                                    }
+                                    if (randompower==1) {
+                                        power.add(new power_mutliple_ball("ball", 0, bl.getX()+5, bl.getY()));
+                                    }
+                                    if (randompower==2) {
+                                        power.add(new power_panjang("panjang", 0, bl.getX()+5, bl.getY()));
+                                    }
+                                }
+                            }
                             if((ball.getY()+15)<=(bl.getY()+bl.getHeight()))
                             {
                                 //bagian atas
@@ -145,9 +164,28 @@ public class PanelBuatMain extends javax.swing.JPanel {
                             }
                         }
                     }
+                    
                 }
                 ball.setX(ball.getX()+ball.getMovex());
                 ball.setY(ball.getY()+ball.getMovey());
+                if (power.size()>0) {
+                    for (int i = 0; i < power.size(); i++) {
+                        power.get(i).y+=1;
+                        if ((power.get(i).y+40)==(f.getHeight()-65) && power.get(i).x>=xBoard&&power.get(i).x<=xBoard+145) {
+                            System.out.println("dapat");
+                        }
+                        if ((power.get(i).y+40)==(f.getHeight()-65) && power.get(i).x<xBoard&&power.get(i).x>xBoard+145) {
+                            System.out.println("tidak dapat");
+                        }
+                        
+//                        else System.out.println("tidak dapat");
+                        if ((power.get(i).y+40)>(f.getHeight()-50)) {
+                            power.get(i).life=0;
+                            power.remove(i);
+                        }
+                    }
+                    
+                }
                 repaint();
             }
         });
@@ -160,9 +198,9 @@ public class PanelBuatMain extends javax.swing.JPanel {
         //posisi x,y,ukuran,ukuran,
         g2.setColor(Color.BLACK);
         g2.drawString("Skor : "+String.valueOf(skor),300,300);
-        //tester auto pilot tinggal,manual pake yg xboard
+//        //tester auto pilot tinggal,manual pake yg xboard
         g2.drawImage(ballbridge,xBoard,this.getHeight()-50,150,50,null);
-        //g2.drawImage(ballbridge,ball.getX()-50,this.getHeight()-50,150,50,null);
+//        g2.drawImage(ballbridge,ball.getX()-50,this.getHeight()-50,150,50,null);
         for (int i = 0; i < block.size(); i++) {
             g2.drawImage(block.get(i).getGambarblock(),block.get(i).getX(),block.get(i).getY(), this);
         }
@@ -171,10 +209,10 @@ public class PanelBuatMain extends javax.swing.JPanel {
             ball.setMovey(ball.getMovey()*-1);
             Music("Paddle Sound.wav");
         }
-        //if (ball.getY()>this.getHeight()-65 ) {
-        //    ball.setMovey(-1);
-        //    Music("Paddle Sound.wav");
-        //}
+//        if (ball.getY()>this.getHeight()-65 ) {
+//            ball.setMovey(-1);
+//            Music("Paddle Sound.wav");
+//        }
         if (ball.getX()+10>this.getWidth()) {
             if (ball.getMovex()>0 && ball.getMovey()>0 ) {
                 ball.kiribawah();
@@ -206,6 +244,11 @@ public class PanelBuatMain extends javax.swing.JPanel {
 
         }
 
+        if (power.size()>0) {
+            for (Powerup pwr : power) {
+                g2.drawImage(pwr.Gambar, pwr.x,pwr.y,40,40,null);
+            }
+        }
         g2.drawImage(ball.getGambarbola(), ball.getX(),ball.getY(), this);
 
 //        repaint();
