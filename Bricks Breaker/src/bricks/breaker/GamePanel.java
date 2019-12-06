@@ -35,10 +35,11 @@ public class GamePanel extends javax.swing.JPanel {
      */
     BufferedImage bg;
     
-    public int xplay,xquit,yplay,yquit,widthplay,heightplay,widthquit,heightquit;
+    public int xplay,xquit,yplay,yquit,xscore,yscore,widthplay,heightplay,widthquit,heightquit ,heightscore,widthscore;
     BufferedImage board;
     BufferedImage play;
     BufferedImage quit;
+    BufferedImage score;
     Timer t;
     public String status="";
     ArrayList<JLabel> arrlabel = new ArrayList<JLabel>();
@@ -51,6 +52,7 @@ public class GamePanel extends javax.swing.JPanel {
             board=ImageIO.read(new File("ball_bridge1.png"));
             play=ImageIO.read(new File("btn_play_normal.png"));
             quit=ImageIO.read(new File("btn_quit_normal.png"));
+            score=ImageIO.read(new File("score.png"));
         } catch (IOException ex) {
             Logger.getLogger(From.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -70,16 +72,20 @@ public class GamePanel extends javax.swing.JPanel {
             
         }
     }
-    public void set_pos(int xplay,int xquit,int yplay,int yquit,int heightplay,int widthplay,int heightquit,int widthquit)
+    public void set_pos(int xplay,int xquit,int yplay,int yquit,int xscore,int yscore,int heightplay,int widthplay,int heightquit,int widthquit, int heightscore,int widthscore)
     {
         this.xplay=xplay;
         this.yplay=yplay;
         this.xquit=xquit;
         this.yquit=yquit;
+        this.xscore =xscore;
+        this.yscore =yscore;
         this.heightplay=heightplay;
         this.heightquit=heightquit;
         this.widthquit=widthquit;
         this.widthplay=widthplay;
+        this.heightscore=heightscore;
+        this.widthscore=widthscore;
     }
     
     @Override

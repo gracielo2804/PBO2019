@@ -34,21 +34,33 @@ public class From extends javax.swing.JFrame {
         Image img=icon.getImage();
         Image newimg=img.getScaledInstance(jButton1.getWidth(),jButton1.getHeight(),java.awt.Image.SCALE_SMOOTH);
         icon=new ImageIcon(newimg);
+        
         ImageIcon icon2= new ImageIcon("btn_quit_normal.png");
         img=icon2.getImage();
         newimg=img.getScaledInstance(jButton2.getWidth(),jButton2.getHeight(),java.awt.Image.SCALE_SMOOTH);
         icon2=new ImageIcon(newimg);
+        
+        ImageIcon icon3= new ImageIcon("score.png");
+        img=icon3.getImage();
+        newimg=img.getScaledInstance(jButton3.getWidth(),jButton3.getHeight(),java.awt.Image.SCALE_SMOOTH);
+        icon3=new ImageIcon(newimg);
+        
         jButton1.setIcon(icon);
         jButton2.setIcon(icon2);
+        jButton3.setIcon(icon3);
         jButton1.setText("");
         jButton2.setText("");
-        gamePanel1.set_pos(jButton1.getX(),jButton2.getX(),jButton1.getY(),jButton2.getY(),jButton1.getHeight(),jButton1.getWidth(),jButton2.getHeight(),jButton2.getWidth());
+        jButton3.setText("");
+        gamePanel1.set_pos(jButton1.getX(),jButton2.getX(),jButton3.getX(),jButton1.getY(),jButton2.getY(),jButton3.getY(),jButton1.getHeight(),jButton1.getWidth(),jButton2.getHeight(),jButton2.getWidth(),jButton3.getHeight(),jButton3.getWidth());
         jButton1.setOpaque(false);
         jButton2.setOpaque(false);
+        jButton3.setOpaque(false);
         jButton1.setContentAreaFilled(false);
         jButton2.setContentAreaFilled(false);
+        jButton3.setContentAreaFilled(false);
         jButton1.setBorderPainted(false);
         jButton2.setBorderPainted(false);
+        jButton3.setBorderPainted(false);
         Timer t=new Timer(1,new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
@@ -87,6 +99,7 @@ public class From extends javax.swing.JFrame {
         gamePanel1 = new bricks.breaker.GamePanel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -105,6 +118,14 @@ public class From extends javax.swing.JFrame {
             }
         });
 
+        jButton3.setBackground(javax.swing.UIManager.getDefaults().getColor("Button.disabledShadow"));
+        jButton3.setBorder(null);
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout gamePanel1Layout = new javax.swing.GroupLayout(gamePanel1);
         gamePanel1.setLayout(gamePanel1Layout);
         gamePanel1Layout.setHorizontalGroup(
@@ -112,8 +133,10 @@ public class From extends javax.swing.JFrame {
             .addGroup(gamePanel1Layout.createSequentialGroup()
                 .addGap(411, 411, 411)
                 .addGroup(gamePanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(gamePanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 246, Short.MAX_VALUE)
+                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 246, Short.MAX_VALUE)))
                 .addContainerGap(437, Short.MAX_VALUE))
         );
         gamePanel1Layout.setVerticalGroup(
@@ -123,7 +146,9 @@ public class From extends javax.swing.JFrame {
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(184, 184, 184))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(140, 140, 140))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -159,6 +184,16 @@ public class From extends javax.swing.JFrame {
         f.setSize(this.getWidth(),this.getHeight());
         this.setVisible(false);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        System.out.println("Score");
+        Frame_score score = new Frame_score();
+//        f.setPreferredSize(this.getPreferredSize());
+        score.setVisible(true);
+        score.setSize(this.getWidth(),this.getHeight());
+        this.setVisible(false);
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -199,5 +234,6 @@ public class From extends javax.swing.JFrame {
     private bricks.breaker.GamePanel gamePanel1;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     // End of variables declaration//GEN-END:variables
 }
