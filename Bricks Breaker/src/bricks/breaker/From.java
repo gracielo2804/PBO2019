@@ -179,6 +179,7 @@ public class From extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         System.out.println("Play");
         Frame2 f = new Frame2();
+        f.form_awal=this;
 //        f.setPreferredSize(this.getPreferredSize());
         f.setVisible(true);
         f.setSize(this.getWidth(),this.getHeight());
@@ -189,6 +190,7 @@ public class From extends javax.swing.JFrame {
         // TODO add your handling code here:
         System.out.println("Score");
         Frame_score score = new Frame_score();
+        score.form_awal=this;
 //        f.setPreferredSize(this.getPreferredSize());
         score.setVisible(true);
         score.setSize(this.getWidth(),this.getHeight());

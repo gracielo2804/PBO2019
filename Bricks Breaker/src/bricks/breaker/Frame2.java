@@ -5,6 +5,16 @@
  */
 package bricks.breaker;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import javax.swing.Timer;
+import java.io.FileOutputStream;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author cielo
@@ -14,10 +24,29 @@ public class Frame2 extends javax.swing.JFrame {
     /**
      * Creates new form Frame2
      */
+    From form_awal;
+    boolean cekgame=true;
+    Frame2 f=this;
+    int skor;
     public Frame2() {
         initComponents();
+        jLabel1.setVisible(false);
+        jTextField1.setVisible(false);
+        jButton1.setVisible(false);
+        panelBuatMain2.f=this;
 //        this.setSize(From.get, From.HEIGHT);
-    }
+        Timer t=new Timer(1, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                if (cekgame==false) {   
+                    jLabel1.setVisible(true);
+                    jTextField1.setVisible(true);
+                    jButton1.setVisible(true);
+                }
+            }
+        });
+        t.start();
+    }    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -28,31 +57,44 @@ public class Frame2 extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        panelBuatMain1 = new bricks.breaker.PanelBuatMain();
         panelBuatMain2 = new bricks.breaker.PanelBuatMain();
-
-        javax.swing.GroupLayout panelBuatMain1Layout = new javax.swing.GroupLayout(panelBuatMain1);
-        panelBuatMain1.setLayout(panelBuatMain1Layout);
-        panelBuatMain1Layout.setHorizontalGroup(
-            panelBuatMain1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-        panelBuatMain1Layout.setVerticalGroup(
-            panelBuatMain1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
+        jLabel1 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jLabel1.setText("Masukkan Nama :");
+
+        jButton1.setText("Confirm");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelBuatMain2Layout = new javax.swing.GroupLayout(panelBuatMain2);
         panelBuatMain2.setLayout(panelBuatMain2Layout);
         panelBuatMain2Layout.setHorizontalGroup(
             panelBuatMain2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 382, Short.MAX_VALUE)
+            .addGroup(panelBuatMain2Layout.createSequentialGroup()
+                .addGap(26, 26, 26)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton1)
+                .addContainerGap(147, Short.MAX_VALUE))
         );
         panelBuatMain2Layout.setVerticalGroup(
             panelBuatMain2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 280, Short.MAX_VALUE)
+            .addGroup(panelBuatMain2Layout.createSequentialGroup()
+                .addGap(120, 120, 120)
+                .addGroup(panelBuatMain2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1))
+                .addContainerGap(228, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -74,6 +116,35 @@ public class Frame2 extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        String listText = "";
+        try {
+            FileInputStream stream = new FileInputStream("score.txt");
+            int data;
+            listText = "";
+            while((data = stream.read()) != -1) {
+                listText += (char) data;
+            }
+            listText+=jTextField1.getText()+ " - "+String.valueOf(skor)+
+            "\n";
+                        
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+        try {
+            FileOutputStream output=new FileOutputStream("score.txt");
+            byte[]b=listText.getBytes();
+            output.write(b);
+            output.close();
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Frame2.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(Frame2.class.getName()).log(Level.SEVERE, null, ex);
+        }        
+        this.dispose();
+        form_awal.setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -111,7 +182,9 @@ public class Frame2 extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private bricks.breaker.PanelBuatMain panelBuatMain1;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JTextField jTextField1;
     private bricks.breaker.PanelBuatMain panelBuatMain2;
     // End of variables declaration//GEN-END:variables
 }

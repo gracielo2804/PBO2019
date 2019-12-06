@@ -39,6 +39,7 @@ public class PanelBuatMain extends javax.swing.JPanel {
     /**
      * Creates new form PanelBuatMain
      */
+    public Frame2 f;
     int xBoard,skor =0;
     Ball ball;
     Timer t, b;
@@ -161,49 +162,53 @@ public class PanelBuatMain extends javax.swing.JPanel {
         g2.drawString("Skor : "+String.valueOf(skor),300,300);
         //tester auto pilot tinggal,manual pake yg xboard
         g2.drawImage(ballbridge,xBoard,this.getHeight()-50,150,50,null);
-//g2.drawImage(ballbridge,ball.getX()-50,this.getHeight()-50,150,50,null);
-for (int i = 0; i < block.size(); i++) {
-    g2.drawImage(block.get(i).getGambarblock(),block.get(i).getX(),block.get(i).getY(), this);
-}
-g2.setColor(Color.blue);
+        //g2.drawImage(ballbridge,ball.getX()-50,this.getHeight()-50,150,50,null);
+        for (int i = 0; i < block.size(); i++) {
+            g2.drawImage(block.get(i).getGambarblock(),block.get(i).getX(),block.get(i).getY(), this);
+        }
+        g2.setColor(Color.blue);
         if (ball.getY()>this.getHeight()-65&& ball.getX()<=xBoard+150 && ball.getX()>=xBoard) {
             ball.setMovey(ball.getMovey()*-1);
             Music("Paddle Sound.wav");
         }
-//if (ball.getY()>this.getHeight()-65 ) {
-//    ball.setMovey(-1);
-//    Music("Paddle Sound.wav");
-//}
-if (ball.getX()+10>this.getWidth()) {
-    if (ball.getMovex()>0 && ball.getMovey()>0 ) {
-        ball.kiribawah();
-    }
-    else if(ball.getMovex()>0&&ball.getMovey()<0){
-        ball.kiriatas();
-    }
-}
-if (ball.getX()<=this.getX()) {
-    if (ball.getMovex()<0 && ball.getMovey()<0) {
-        ball.kananatas();
-    }
-    else if(ball.getMovex()<0 && ball.getMovey()>0){
-        ball.kananbawah();
-    }
-}
-if (ball.getY()<0) {
-    ball.setMovey(ball.getMovey()*-1);
-}
-if (ball.getY()>this.getHeight()) {
-    t.stop();
-    JOptionPane.showMessageDialog(this,"Game Over" + this.getHeight());
-    ball.setX(100);
-    ball.setY(100);
-    t.stop();
-}
+        //if (ball.getY()>this.getHeight()-65 ) {
+        //    ball.setMovey(-1);
+        //    Music("Paddle Sound.wav");
+        //}
+        if (ball.getX()+10>this.getWidth()) {
+            if (ball.getMovex()>0 && ball.getMovey()>0 ) {
+                ball.kiribawah();
+            }
+            else if(ball.getMovex()>0&&ball.getMovey()<0){
+                ball.kiriatas();
+            }
+        }
+        if (ball.getX()<=this.getX()) {
+            if (ball.getMovex()<0 && ball.getMovey()<0) {
+                ball.kananatas();
+            }
+            else if(ball.getMovex()<0 && ball.getMovey()>0){
+                ball.kananbawah();
+            }
+        }
+        if (ball.getY()<0) {
+            ball.setMovey(ball.getMovey()*-1);
+        }
+        if (ball.getY()>this.getHeight()) {
+            t.stop();
+            JOptionPane.showMessageDialog(this,"Game Over");
+            ball.setX(100);
+            ball.setY(100);
+            t.stop();
+            f.cekgame=false;
+            f.skor=this.skor;
 
-g2.drawImage(ball.getGambarbola(), ball.getX(),ball.getY(), this);
 
-repaint();
+        }
+
+        g2.drawImage(ball.getGambarbola(), ball.getX(),ball.getY(), this);
+
+//        repaint();
     }
     
     @SuppressWarnings("unchecked")
