@@ -46,7 +46,7 @@ public class PanelBuatMain extends javax.swing.JPanel {
     int xBoard,skor =0;
     int pLaser = 50, ctrLaser = 2, Xlaser, Ylaser;
     ArrayList<Ball> ball =new ArrayList<>();
-    boolean laser=false,multiple=false,panjang=false, tembak = false;
+    boolean laser=false,multiple=false,panjang=false, tembak = false; //lek misale mau nyoba laser tanpa dapat powe, Boolean laser mbo ganti tru ae. terus cara aktifkan laser pencet 'l'
     Timer t, b, PowerTime;
     int yboard =this.getHeight()-50,panjangpapan=150;
     int xbola=100,ybola=100,movexbola=2,moveybola=2;
@@ -75,7 +75,6 @@ public class PanelBuatMain extends javax.swing.JPanel {
                 for (int i = 0; i < ball.size(); i++) {
                     for (Block bl : block) {
                         Rectangle ktk = new Rectangle(bl.getX(), bl.getY(), bl.getWidth(), bl.getHeight());
-                        
                         //arah bola dari jam 10 ke jam 5
                         if (ball.get(i).getMovex()>0 && ball.get(i).getMovey()>0) {
                             if(ktk.intersects(new Rectangle(ball.get(i).getX(), ball.get(i).getY(), 15, 15))) {
@@ -198,6 +197,14 @@ public class PanelBuatMain extends javax.swing.JPanel {
                         }
                     }
                     if (tembak) {
+                        for (Block bl : block) {
+                            Rectangle ktk = new Rectangle(bl.getX(), bl.getY(), bl.getWidth(), bl.getHeight());
+                            if (ktk.intersects(TmbLsr)) {
+                                bl.hitDestroy();
+                                skor++;
+                            }
+                        }
+                        
                         Ylaser -= ctrLaser;
                         TmbLsr.setLocation(Xlaser, Ylaser);
                         System.out.println("tembak");
@@ -249,15 +256,18 @@ public class PanelBuatMain extends javax.swing.JPanel {
         for (int i = 0; i < ball.size(); i++)
         {
             if (ball.get(i).getY()>=this.getHeight()-65&& ball.get(i).getX()<=xBoard+panjangpapan && ball.get(i).getX()>=xBoard) {
+                ball.get(i).setY(this.getHeight()-75);
                 ball.get(i).setMovey(ball.get(i).getMovey()*-1);
                 Music("Paddle Sound.wav");
             }
-            if (ball.get(i).getY()>= this.getHeight() && ball.get(i).getX()+15 >= xBoard-2 && ball.get(i).getX()+15 <= xBoard+3) { //bola nyentuh sebelah kiri board
+            else if (ball.get(i).getY()>= this.getHeight() && ball.get(i).getX()+15 >= xBoard && ball.get(i).getX()+15 <= xBoard+3) { //bola nyentuh sebelah kiri board
+                ball.get(i).setX(xBoard-17);
                 ball.get(i).setMovex(ball.get(i).getX()*-1);
                 ball.get(i).setMovey(ball.get(i).getY()*-1);
                 Music("Paddle Sound.wav");
             }
-            if (ball.get(i).getY() >= this.getHeight() && ball.get(i).getX() >= xBoard+panjangpapan-3 && ball.get(i).getX() <= xBoard+panjangpapan+2) {
+            else if (ball.get(i).getY() >= this.getHeight() && ball.get(i).getX() >= xBoard+panjangpapan && ball.get(i).getX() <= xBoard+panjangpapan-2) {
+                ball.get(i).setX(xBoard+2);
                 ball.get(i).setMovex(ball.get(i).getX()*-1);
                 ball.get(i).setMovey(ball.get(i).getY()*-1);
                 Music("Paddle Sound.wav");
@@ -266,7 +276,7 @@ public class PanelBuatMain extends javax.swing.JPanel {
 //                ball.get(i).setMovey(-1);
 //                Music("Paddle Sound.wav");
 //            }
-            if (ball.get(i).getX()+10>this.getWidth()) {
+            if (ball.get(i).getX()+15>=this.getWidth()) {
                 if (ball.get(i).getMovex()>0 && ball.get(i).getMovey()>0 ) {
                     ball.get(i).kiribawah();
                 }
@@ -282,10 +292,18 @@ public class PanelBuatMain extends javax.swing.JPanel {
                     ball.get(i).kananbawah();
                 }
             }
-            if (ball.get(i).getY()<20) {
+            if (ball.get(i).getY()<=0) {
+                ball.get(i).setY(1);
                 ball.get(i).setMovey(ball.get(i).getMovey() *-1);
             }
-            if (ball.get(0).getY()>this.getHeight()) {
+            
+            if (ball.size()>1) {
+                if (ball.get(i).getY()>this.getHeight()) {
+                    ball.remove(i);
+                }
+            }
+            else if (ball.size()==1) {
+                if (ball.get(0).getY()>this.getHeight()) {
                 t.stop();
                 JOptionPane.showMessageDialog(this,"Game Over");
                 ball.get(0).setX(100);
@@ -293,6 +311,7 @@ public class PanelBuatMain extends javax.swing.JPanel {
                 t.stop();
                 f.cekgame=false;
                 f.skor=this.skor;
+            }
             }
             g2.drawImage(ball.get(i).getGambarbola(), ball.get(i).getX(),ball.get(i).getY(), this);
         }

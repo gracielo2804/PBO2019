@@ -89,6 +89,24 @@ public class Block{
     public void setGambarBlock(Image GambarBlock) {
         this.GambarBlock = GambarBlock;
     }
+    
+    public void hitDestroy(){
+        life = -1;
+        switch (life){
+            case -1 :
+                GambarBlock=null;                
+                angka=rnd.nextInt(5);
+                if (angka==1) {
+                    angka=rnd.nextInt(3);
+                }
+                this.x=0;
+                this.y=0;
+                this.width=0;
+                this.height=0;
+        }
+             
+    }
+    
     public void hit()
     {
         life-=1;
