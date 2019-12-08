@@ -40,11 +40,14 @@ public class PanelBuatMain extends javax.swing.JPanel {
      * Creates new form PanelBuatMain
      */
     ArrayList<Powerup>power=new ArrayList<Powerup>();
+    Rectangle TmbLsr;
     public Frame2 f;
+    int ctrPower = 0; //Memberi waktu untuk power up panjang
     int xBoard,skor =0;
+    int pLaser = 50, ctrLaser = 2, Xlaser, Ylaser;
     ArrayList<Ball> ball =new ArrayList<>();
-    boolean laser=false,multiple=false,panjang=false;
-    Timer t, b;
+    boolean laser=false,multiple=false,panjang=false, tembak = false;
+    Timer t, b, PowerTime;
     int yboard =this.getHeight()-50,panjangpapan=150;
     int xbola=100,ybola=100,movexbola=2,moveybola=2;
     ArrayList<Block>block=new ArrayList<>();
@@ -66,7 +69,7 @@ public class PanelBuatMain extends javax.swing.JPanel {
             Logger.getLogger(From.class.getName()).log(Level.SEVERE, null, ex);
         }
         this.setFocusable(true);
-        t =new Timer(1,new ActionListener() {
+        t =new Timer(5,new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 for (int i = 0; i < ball.size(); i++) {
@@ -182,6 +185,7 @@ public class PanelBuatMain extends javax.swing.JPanel {
                                 }
                                 if (power.get(j)instanceof power_panjang) {
                                     panjangpapan=300;
+                                    PowerTime.start();
                                 }
                             }
                             if ((power.get(j).y+40)==(f.getHeight()-65) && power.get(j).x<xBoard&&power.get(j).x>xBoard+145) {
@@ -193,7 +197,28 @@ public class PanelBuatMain extends javax.swing.JPanel {
                             }
                         }
                     }
+                    if (tembak) {
+                        Ylaser -= ctrLaser;
+                        TmbLsr.setLocation(Xlaser, Ylaser);
+                        System.out.println("tembak");
+                        System.out.println(Ylaser);
+                        if (Ylaser <= 0) {
+                            tembak = false;
+                        }
+                    }
                     repaint();
+                }
+            }
+        });
+        
+        PowerTime = new Timer(1000, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ctrPower++;
+                if (ctrPower == 5) {
+                    panjangpapan = 150;
+                    PowerTime.stop();
+                    ctrPower = 0;
                 }
             }
         });
@@ -203,59 +228,75 @@ public class PanelBuatMain extends javax.swing.JPanel {
     protected void paintComponent(Graphics grphcs) {
         super.paintComponent(grphcs);
         Graphics2D g2 = (Graphics2D)grphcs;
+        if (tembak == true) {
+            g2.setColor(Color.BLUE);
+            g2.fill(TmbLsr);
+        }
         //posisi x,y,ukuran,ukuran,
         g2.setColor(Color.BLACK);
         g2.drawString("Skor : "+String.valueOf(skor),300,300);
 //        //tester auto pilot tinggal,manual pake yg xboard
         g2.drawImage(ballbridge,xBoard,yboard,panjangpapan,50,null);
         for (int i = 0; i < ball.size(); i++) {
-            g2.drawImage(ballbridge,ball.get(i).getX()-50,this.getHeight()-50,panjangpapan,50,null);
+            g2.drawImage(ballbridge,xBoard,this.getHeight()-50,panjangpapan,50,null);
         }
         for (int i = 0; i < block.size(); i++) {
             g2.drawImage(block.get(i).getGambarblock(),block.get(i).getX(),block.get(i).getY(), this);
         }
         g2.setColor(Color.blue);
+        
+        //Pantulan bola
         for (int i = 0; i < ball.size(); i++)
         {
-            if (ball.get(i).getY()>this.getHeight()-65&& ball.get(i).getX()<=xBoard+150 && ball.get(i).getX()>=xBoard) {
+            if (ball.get(i).getY()>=this.getHeight()-65&& ball.get(i).getX()<=xBoard+panjangpapan && ball.get(i).getX()>=xBoard) {
                 ball.get(i).setMovey(ball.get(i).getMovey()*-1);
                 Music("Paddle Sound.wav");
             }
-//    if (ball.get(i).getY()>this.getHeight()-65 ) {
-//        ball.get(i).setMovey(-1);
-//        Music("Paddle Sound.wav");
-//    }
-if (ball.get(i).getX()+10>this.getWidth()) {
-    if (ball.get(i).getMovex()>0 && ball.get(i).getMovey()>0 ) {
-        ball.get(i).kiribawah();
-    }
-    else if(ball.get(i).getMovex()>0&&ball.get(i).getMovey()<0){
-        ball.get(i).kiriatas();
-    }
-}
-if (ball.get(i).getX()<=this.getX()) {
-    if (ball.get(i).getMovex()<0 && ball.get(i).getMovey()<0) {
-        ball.get(i).kananatas();
-    }
-    else if(ball.get(i).getMovex()<0 && ball.get(i).getMovey()>0){
-        ball.get(i).kananbawah();
-    }
-}
-if (ball.get(i).getY()<20) {
-    ball.get(i).setMovey(+5);
-}
-if (ball.get(0).getY()>this.getHeight()) {
-    t.stop();
-    JOptionPane.showMessageDialog(this,"Game Over");
-    ball.get(0).setX(100);
-    ball.get(0).setY(100);
-    t.stop();
-    f.cekgame=false;
-    f.skor=this.skor;
-}
-g2.drawImage(ball.get(i).getGambarbola(), ball.get(i).getX(),ball.get(i).getY(), this);
+            if (ball.get(i).getY()>= this.getHeight() && ball.get(i).getX()+15 >= xBoard-2 && ball.get(i).getX()+15 <= xBoard+3) { //bola nyentuh sebelah kiri board
+                ball.get(i).setMovex(ball.get(i).getX()*-1);
+                ball.get(i).setMovey(ball.get(i).getY()*-1);
+                Music("Paddle Sound.wav");
+            }
+            if (ball.get(i).getY() >= this.getHeight() && ball.get(i).getX() >= xBoard+panjangpapan-3 && ball.get(i).getX() <= xBoard+panjangpapan+2) {
+                ball.get(i).setMovex(ball.get(i).getX()*-1);
+                ball.get(i).setMovey(ball.get(i).getY()*-1);
+                Music("Paddle Sound.wav");
+            }
+//            if (ball.get(i).getY()>this.getHeight()-65 ) {
+//                ball.get(i).setMovey(-1);
+//                Music("Paddle Sound.wav");
+//            }
+            if (ball.get(i).getX()+10>this.getWidth()) {
+                if (ball.get(i).getMovex()>0 && ball.get(i).getMovey()>0 ) {
+                    ball.get(i).kiribawah();
+                }
+                else if(ball.get(i).getMovex()>0&&ball.get(i).getMovey()<0){
+                    ball.get(i).kiriatas();
+                }
+            }
+            if (ball.get(i).getX()<=this.getX()) {
+                if (ball.get(i).getMovex()<0 && ball.get(i).getMovey()<0) {
+                    ball.get(i).kananatas();
+                }
+                else if(ball.get(i).getMovex()<0 && ball.get(i).getMovey()>0){
+                    ball.get(i).kananbawah();
+                }
+            }
+            if (ball.get(i).getY()<20) {
+                ball.get(i).setMovey(ball.get(i).getMovey() *-1);
+            }
+            if (ball.get(0).getY()>this.getHeight()) {
+                t.stop();
+                JOptionPane.showMessageDialog(this,"Game Over");
+                ball.get(0).setX(100);
+                ball.get(0).setY(100);
+                t.stop();
+                f.cekgame=false;
+                f.skor=this.skor;
+            }
+            g2.drawImage(ball.get(i).getGambarbola(), ball.get(i).getX(),ball.get(i).getY(), this);
         }
-        
+
         if (power.size()>0) {
             for (Powerup pwr : power) {
                 g2.drawImage(pwr.Gambar, pwr.x,pwr.y,40,40,null);
@@ -302,7 +343,18 @@ g2.drawImage(ball.get(i).getGambarbola(), ball.get(i).getX(),ball.get(i).getY(),
             
         }
         if (a==' ') {
-            t.start();
+            if (t.isRunning()) {
+                t.stop();
+            }else t.start();
+        }
+        if (a =='l') {
+            if (laser) {
+                Ylaser = this.getHeight()-65;
+                Xlaser = (xBoard + panjangpapan)-(panjangpapan/2);
+                tembak = true;
+                TmbLsr = new Rectangle(Xlaser,Ylaser, 10, pLaser);
+                laser = false;
+            }
         }
         repaint();
     }//GEN-LAST:event_formKeyPressed
