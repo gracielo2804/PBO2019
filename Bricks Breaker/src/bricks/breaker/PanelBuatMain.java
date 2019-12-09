@@ -241,7 +241,7 @@ public class PanelBuatMain extends javax.swing.JPanel {
         }
         //posisi x,y,ukuran,ukuran,
         g2.setColor(Color.BLACK);
-        g2.drawString("Skor : "+String.valueOf(skor),300,300);
+        g2.drawString("Skor : "+String.valueOf(skor),1010,459);
 //        //tester auto pilot tinggal,manual pake yg xboard
         g2.drawImage(ballbridge,xBoard,yboard,panjangpapan,50,null);
         for (int i = 0; i < ball.size(); i++) {
